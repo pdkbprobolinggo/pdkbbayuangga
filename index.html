@@ -21,7 +21,6 @@
     <!-- Memuat React, ReactDOM, dan Dependencies untuk Grafik -->
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    <!-- Tambahan react-is untuk mengatasi error ForwardRef pada Recharts -->
     <script crossorigin src="https://unpkg.com/react-is@18/umd/react-is.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/prop-types/prop-types.min.js"></script>
     <script crossorigin src="https://unpkg.com/recharts/umd/Recharts.js"></script>
@@ -60,6 +59,7 @@
         const Sun = ({ size = 24, className = "" }) => <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>;
         const Target = ({ size = 24, className = "" }) => <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>;
         const ChevronDown = ({ size = 12, className = "" }) => <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className={className}><polyline points="6 9 12 15 18 9"></polyline></svg>;
+        const ChevronUp = ({ size = 12, className = "" }) => <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className={className}><polyline points="18 15 12 9 6 15"></polyline></svg>;
         const LayoutDashboard = ({ size = 18, className = "" }) => <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><rect x="3" y="3" width="7" height="9"></rect><rect x="14" y="3" width="7" height="5"></rect><rect x="14" y="12" width="7" height="9"></rect><rect x="3" y="16" width="7" height="5"></rect></svg>;
         const NetworkIcon = ({ size = 18, className = "" }) => <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><rect x="16" y="16" width="6" height="6" rx="1"></rect><rect x="2" y="16" width="6" height="6" rx="1"></rect><rect x="9" y="2" width="6" height="6" rx="1"></rect><path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3"></path><path d="M12 12V8"></path></svg>;
         const Factory = ({ size = 18, className = "" }) => <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M2 20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8l-7 5V8l-7 5V4a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"></path></svg>;
@@ -68,7 +68,7 @@
         const teamData = {
           assistantManager: { name: "Andri Dwi Ariyanto", role: "Asman PDKB" },
           pdkbJaringan: [
-            { id: 101, name: "Dwi Mulyono", role: "TL PDKB Jaringan" },
+            { id: 101, name: "Dwi Mulyono", role: "SPV PDKB Jaringan" },
             { id: 102, name: "Moch Andiki K.", role: "JTC SUTT/SUTET" },
             { id: 103, name: "Fahmi Imadul B.", role: "JTC SUTT/SUTET" },
             { id: 104, name: "M. Ilham Muzakki", role: "JTC SUTT/SUTET" },
@@ -79,19 +79,13 @@
             { id: 109, name: "Achmad Faried W.", role: "JTC SUTT/SUTET" }
           ],
           pdkbGarduInduk: [
-            { id: 201, name: "M. Annuur Ridwan P.", role: "TL PDKB GI" },
-            { id: 202, name: "Ramadani Gamarido", role: "TC GI/GITET" },
+            { id: 201, name: "M. Annuur Ridwan P.", role: "SPV PDKB GI" },
+            { id: 202, name: "Ramadani Gamarido", role: "JTC GI/GITET" },
             { id: 203, name: "Evrizal Wardhana", role: "JTC GI/GITET" },
             { id: 204, name: "M. Anwar Shiddiq", role: "JTC GI/GITET" }
           ],
-          defaultTargetsAndRealisasi: [
-            { id: 1, item: "PREVENTIVE ACTION", target: 0, completed: 0, category: 'Gardu Induk' },
-            { id: 2, item: "CORRECTIVE ACTION", target: 0, completed: 0, category: 'Gardu Induk' },
-            { id: 3, item: "PROGRAM KEANDALAN", target: 0, completed: 0, category: 'Gardu Induk' },
-            { id: 4, item: "PREVENTIVE ACTION", target: 0, completed: 0, category: 'Jaringan' },
-            { id: 5, item: "CORRECTIVE ACTION", target: 0, completed: 0, category: 'Jaringan' },
-            { id: 6, item: "PROGRAM KEANDALAN", target: 0, completed: 0, category: 'Jaringan' }
-          ]
+          defaultSemester1: [],
+          defaultSemester2: []
         };
 
         const historyYears = [2026, 2025, 2024, 2023, 2022, 2021, 2020];
@@ -100,7 +94,16 @@
           const [topMenu, setTopMenu] = useState('Overview');
           const [activeTab, setActiveTab] = useState('pdkbJaringan');
           
-          const [sheetData, setSheetData] = useState(teamData.defaultTargetsAndRealisasi);
+          const [sheetData, setSheetData] = useState({
+            semester1: teamData.defaultSemester1,
+            semester2: teamData.defaultSemester2
+          });
+          
+          const [activeSemester, setActiveSemester] = useState('semester1');
+          
+          // State untuk mengatur Accordion mana yang sedang terbuka (menyimpan ID item)
+          const [expandedItems, setExpandedItems] = useState({});
+
           const [isLoading, setIsLoading] = useState(true);
           const [errorMessage, setErrorMessage] = useState("");
           
@@ -116,7 +119,7 @@
             }
           }, [isDarkMode]);
 
-          // Membaca Data CSV Berdasarkan Titik Koordinat Sel yang Diberikan
+          // Membaca Data CSV Berdasarkan Titik Koordinat Sel
           useEffect(() => {
             setIsLoading(true);
             setErrorMessage("");
@@ -164,22 +167,52 @@
                     return 0; 
                 };
 
-                const exactData = [
-                  // --- KELOMPOK GARDU INDUK ---
-                  { id: 1, item: "PREVENTIVE ACTION", category: 'Gardu Induk', completed: getVal('D', 3), target: getVal('C', 3) },
-                  { id: 2, item: "CORRECTIVE ACTION", category: 'Gardu Induk', completed: getVal('D', 15), target: getVal('C', 15) },
-                  { id: 3, item: "PROGRAM KEANDALAN", category: 'Gardu Induk', completed: getVal('D', 30), target: getVal('C', 30) },
-                  // --- KELOMPOK JARINGAN ---
-                  { id: 4, item: "PREVENTIVE ACTION", category: 'Jaringan', completed: getVal('D', 50), target: getVal('C', 50) },
-                  { id: 5, item: "CORRECTIVE ACTION", category: 'Jaringan', completed: getVal('D', 60), target: getVal('C', 60) },
-                  { id: 6, item: "PROGRAM KEANDALAN", category: 'Jaringan', completed: getVal('D', 71), target: getVal('C', 71) }
+                // --- DATA DUMMY UNTUK ACCORDION SEMENTARA ---
+                // Nanti ini bisa diganti dengan sistem yang menarik langsung dari CSV per baris
+                const dummyDetailsGI = [
+                  { name: "Pemeliharaan Trafo 1", real: 1, target: 1 },
+                  { name: "Asesmen Bay Penghantar", real: 1, target: 1 },
+                  { name: "Penggantian Isolator", real: 0, target: 1 }
+                ];
+                
+                const dummyDetailsJaringan = [
+                  { name: "Inspeksi SUTM", real: 1, target: 1 },
+                  { name: "Pembersihan ROW", real: 1, target: 1 },
+                  { name: "Perbaikan Tiang Miring", real: 0, target: 1 }
                 ];
 
-                setSheetData(exactData);
+                // --- MAPPING DATA SEMESTER 1 ---
+                const sem1Data = [
+                  // GARDU INDUK
+                  { id: 'g-1', item: "PREVENTIVE ACTION", category: 'Gardu Induk', completed: getVal('D', 3), target: getVal('C', 3), details: dummyDetailsGI },
+                  { id: 'g-2', item: "CORRECTIVE ACTION", category: 'Gardu Induk', completed: getVal('D', 15), target: getVal('C', 15), details: dummyDetailsGI },
+                  { id: 'g-3', item: "PROGRAM KEANDALAN", category: 'Gardu Induk', completed: getVal('D', 30), target: getVal('C', 30), details: dummyDetailsGI },
+                  // JARINGAN
+                  { id: 'j-1', item: "PREVENTIVE ACTION", category: 'Jaringan', completed: getVal('D', 50), target: getVal('C', 50), details: dummyDetailsJaringan },
+                  { id: 'j-2', item: "CORRECTIVE ACTION", category: 'Jaringan', completed: getVal('D', 60), target: getVal('C', 60), details: dummyDetailsJaringan },
+                  { id: 'j-3', item: "PROGRAM KEANDALAN", category: 'Jaringan', completed: getVal('D', 71), target: getVal('C', 71), details: dummyDetailsJaringan }
+                ];
+
+                // --- MAPPING DATA SEMESTER 2 ---
+                const sem2Data = [
+                  // GARDU INDUK
+                  { id: 'g-4', item: "PREVENTIVE ACTION", category: 'Gardu Induk', completed: getVal('F', 3), target: getVal('G', 3), details: dummyDetailsGI },
+                  { id: 'g-5', item: "CORRECTIVE ACTION", category: 'Gardu Induk', completed: getVal('F', 15), target: getVal('G', 15), details: dummyDetailsGI },
+                  { id: 'g-6', item: "PROGRAM KEANDALAN", category: 'Gardu Induk', completed: getVal('F', 30), target: getVal('G', 30), details: dummyDetailsGI },
+                  // JARINGAN
+                  { id: 'j-4', item: "PREVENTIVE ACTION", category: 'Jaringan', completed: getVal('G', 50), target: getVal('F', 50), details: dummyDetailsJaringan },
+                  { id: 'j-5', item: "CORRECTIVE ACTION", category: 'Jaringan', completed: getVal('G', 60), target: getVal('F', 60), details: dummyDetailsJaringan },
+                  { id: 'j-6', item: "PROGRAM KEANDALAN", category: 'Jaringan', completed: getVal('G', 71), target: getVal('F', 71), details: dummyDetailsJaringan }
+                ];
+
+                setSheetData({
+                  semester1: sem1Data,
+                  semester2: sem2Data
+                });
               })
               .catch(error => {
                 console.error("Gagal menarik data:", error);
-                setErrorMessage("Gagal mengambil data akurat. Menampilkan data 0. Pastikan link Google Sheet dan koordinat sel benar.");
+                setErrorMessage("Gagal mengambil data akurat. Pastikan format CSV dan koordinat sel benar.");
               })
               .finally(() => {
                 setIsLoading(false);
@@ -195,12 +228,15 @@
             { id: 'Target', label: 'Target Kinerja', icon: Target, hasDropdown: true }
           ];
 
+          // Ambil data sesuai dengan Semester yang sedang aktif dipilih
+          const currentDisplayData = sheetData[activeSemester] || [];
+
           // Persiapan Data untuk Grafik Recharts
           const formatChartData = (category) => {
-            return sheetData
+            return currentDisplayData
               .filter(d => d.category === category)
               .map(d => ({
-                name: d.item.replace(' ACTION', '').replace('PROGRAM ', ''), // Singkatan agar muat di grafik
+                name: d.item.replace(' ACTION', '').replace('PROGRAM ', ''),
                 Target: d.target,
                 Realisasi: d.completed
               }));
@@ -209,7 +245,6 @@
           const chartDataJaringan = formatChartData('Jaringan');
           const chartDataGI = formatChartData('Gardu Induk');
 
-          // Kustomisasi Tooltip Recharts untuk Tema Gelap/Terang
           const CustomTooltip = ({ active, payload, label }) => {
             if (active && payload && payload.length) {
               return (
@@ -224,6 +259,14 @@
               );
             }
             return null;
+          };
+
+          // Fungsi untuk Toggle Accordion Buka/Tutup
+          const toggleAccordion = (id) => {
+            setExpandedItems(prev => ({
+              ...prev,
+              [id]: !prev[id]
+            }));
           };
 
           return (
@@ -352,13 +395,41 @@
                   </div>
                 )}
 
-                {/* --- SEKSI GRAFIK (NEW) --- */}
+                {/* --- TOGGLE PILIHAN SEMESTER --- */}
+                <div className="flex justify-center mb-6">
+                  <div className="bg-slate-200 dark:bg-slate-800 p-1.5 rounded-xl inline-flex shadow-inner">
+                    <button 
+                      onClick={() => setActiveSemester('semester1')} 
+                      className={`px-6 py-2 rounded-lg text-sm font-bold transition-all duration-200 ${
+                        activeSemester === 'semester1' 
+                          ? 'bg-white dark:bg-slate-700 text-blue-600 dark:text-blue-400 shadow-sm transform scale-105' 
+                          : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'
+                      }`}
+                    >
+                      Semester 1
+                    </button>
+                    <button 
+                      onClick={() => setActiveSemester('semester2')} 
+                      className={`px-6 py-2 rounded-lg text-sm font-bold transition-all duration-200 ${
+                        activeSemester === 'semester2' 
+                          ? 'bg-white dark:bg-slate-700 text-blue-600 dark:text-blue-400 shadow-sm transform scale-105' 
+                          : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'
+                      }`}
+                    >
+                      Semester 2
+                    </button>
+                  </div>
+                </div>
+
+                {/* --- SEKSI GRAFIK --- */}
                 <section className="mb-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     
                     {/* Grafik Jaringan */}
                     <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm p-5 transition-colors duration-300">
-                      <h2 className="text-sm font-extrabold text-blue-600 dark:text-blue-400 tracking-wider mb-4 uppercase">Grafik Performa Jaringan</h2>
+                      <h2 className="text-sm font-extrabold text-blue-600 dark:text-blue-400 tracking-wider mb-4 uppercase">
+                        Grafik Performa Jaringan ({activeSemester === 'semester1' ? 'Smt 1' : 'Smt 2'})
+                      </h2>
                       <div className="h-64 w-full">
                         <ResponsiveContainer width="100%" height="100%">
                           <BarChart data={chartDataJaringan} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
@@ -376,7 +447,9 @@
 
                     {/* Grafik Gardu Induk */}
                     <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm p-5 transition-colors duration-300">
-                      <h2 className="text-sm font-extrabold text-emerald-600 dark:text-emerald-400 tracking-wider mb-4 uppercase">Grafik Performa Gardu Induk</h2>
+                      <h2 className="text-sm font-extrabold text-emerald-600 dark:text-emerald-400 tracking-wider mb-4 uppercase">
+                        Grafik Performa Gardu Induk ({activeSemester === 'semester1' ? 'Smt 1' : 'Smt 2'})
+                      </h2>
                       <div className="h-64 w-full">
                         <ResponsiveContainer width="100%" height="100%">
                           <BarChart data={chartDataGI} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
@@ -431,28 +504,63 @@
                       </div>
                     </div>
 
-                    {/* KOLOM 2: REALISASI JARINGAN */}
+                    {/* KOLOM 2: REALISASI JARINGAN (Dengan Accordion) */}
                     <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm p-5 flex flex-col transition-colors duration-300">
                       <div className="flex justify-between items-center mb-5">
                         <h2 className="text-xl font-extrabold text-blue-600 dark:text-blue-400 tracking-tight">DETAIL JARINGAN</h2>
                       </div>
-                      <div className="flex-1 space-y-4">
+                      <div className="flex-1 space-y-3">
                         {isLoading ? (
-                          <div className="text-center py-4 text-sm text-slate-400 animate-pulse">Menarik data dari Kolom C & D...</div>
+                          <div className="text-center py-4 text-sm text-slate-400 animate-pulse">Menarik data...</div>
                         ) : (
-                          sheetData.filter(d => d.category === 'Jaringan').map((r) => {
+                          currentDisplayData.filter(d => d.category === 'Jaringan').map((r) => {
                             const percentage = r.target > 0 ? Math.round((r.completed / r.target) * 100) : 0;
+                            const isExpanded = expandedItems[r.id];
+
                             return (
-                              <div key={`j-${r.id}`} className="py-2 border-b border-dashed border-slate-200 dark:border-slate-700 last:border-0">
-                                <div className="flex justify-between items-center mb-1">
-                                  <span className="text-slate-700 dark:text-slate-300 text-[13px] font-bold tracking-wide">{r.item}</span>
-                                  <span className="font-extrabold text-[13px] text-blue-600 dark:text-blue-400">
-                                    {r.completed}/{r.target} <span className="ml-1 text-[10px] bg-blue-50 dark:bg-blue-900/40 px-1.5 py-0.5 rounded">{percentage}%</span>
+                              <div key={r.id} className="py-2 border-b border-dashed border-slate-200 dark:border-slate-700 last:border-0">
+                                {/* Header Accordion (Bisa di-klik) */}
+                                <div 
+                                  className="flex justify-between items-center mb-1.5 cursor-pointer group"
+                                  onClick={() => toggleAccordion(r.id)}
+                                >
+                                  <span className="text-slate-700 dark:text-slate-300 text-[13px] font-bold tracking-wide group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                                    {r.item}
                                   </span>
+                                  <div className="flex items-center gap-2">
+                                    <span className="font-extrabold text-[13px] text-blue-600 dark:text-blue-400">
+                                      {r.completed}/{r.target} <span className="ml-1 text-[10px] bg-blue-50 dark:bg-blue-900/40 px-1.5 py-0.5 rounded">{percentage}%</span>
+                                    </span>
+                                    {isExpanded ? 
+                                      <ChevronUp size={16} className="text-slate-400 group-hover:text-blue-500" /> : 
+                                      <ChevronDown size={16} className="text-slate-400 group-hover:text-blue-500" />
+                                    }
+                                  </div>
                                 </div>
-                                <div className="w-full bg-slate-100 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
+                                
+                                {/* Progress Bar */}
+                                <div className="w-full bg-slate-100 dark:bg-slate-700 h-1.5 rounded-full overflow-hidden">
                                   <div className="bg-blue-500 h-full transition-all duration-500" style={{ width: `${Math.min(percentage, 100)}%` }}></div>
                                 </div>
+
+                                {/* Body Accordion (Detail List Pekerjaan) */}
+                                {isExpanded && (
+                                  <div className="mt-3 bg-slate-50 dark:bg-slate-800/80 rounded-xl p-3.5 space-y-2 border border-slate-100 dark:border-slate-700 animate-in fade-in slide-in-from-top-2 duration-300">
+                                    {r.details && r.details.length > 0 ? (
+                                      r.details.map((detail, idx) => (
+                                        <div key={idx} className="flex justify-between items-center text-[12px] border-b border-slate-200 dark:border-slate-700/50 last:border-0 pb-1.5 last:pb-0">
+                                          <span className="text-slate-600 dark:text-slate-400">{detail.name}</span>
+                                          <span className={`font-bold ${detail.real >= detail.target ? 'text-green-600 dark:text-green-500' : 'text-amber-500'}`}>
+                                            {detail.real} / {detail.target}
+                                          </span>
+                                        </div>
+                                      ))
+                                    ) : (
+                                      <div className="text-xs text-slate-400 text-center italic py-2">Belum ada pemetaan data detail.</div>
+                                    )}
+                                  </div>
+                                )}
+
                               </div>
                             );
                           })
@@ -460,28 +568,63 @@
                       </div>
                     </div>
 
-                    {/* KOLOM 3: REALISASI GARDU INDUK */}
+                    {/* KOLOM 3: REALISASI GARDU INDUK (Dengan Accordion) */}
                     <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm p-5 flex flex-col transition-colors duration-300">
                       <div className="flex justify-between items-center mb-5">
                         <h2 className="text-xl font-extrabold text-emerald-600 dark:text-emerald-400 tracking-tight">DETAIL GARDU INDUK</h2>
                       </div>
-                      <div className="flex-1 space-y-4">
+                      <div className="flex-1 space-y-3">
                         {isLoading ? (
-                          <div className="text-center py-4 text-sm text-slate-400 animate-pulse">Menarik data dari Kolom C & D...</div>
+                          <div className="text-center py-4 text-sm text-slate-400 animate-pulse">Menarik data...</div>
                         ) : (
-                          sheetData.filter(d => d.category === 'Gardu Induk').map((r) => {
+                          currentDisplayData.filter(d => d.category === 'Gardu Induk').map((r) => {
                             const percentage = r.target > 0 ? Math.round((r.completed / r.target) * 100) : 0;
+                            const isExpanded = expandedItems[r.id];
+
                             return (
-                              <div key={`g-${r.id}`} className="py-2 border-b border-dashed border-slate-200 dark:border-slate-700 last:border-0">
-                                <div className="flex justify-between items-center mb-1">
-                                  <span className="text-slate-700 dark:text-slate-300 text-[13px] font-bold tracking-wide">{r.item}</span>
-                                  <span className="font-extrabold text-[13px] text-emerald-600 dark:text-emerald-400">
-                                    {r.completed}/{r.target} <span className="ml-1 text-[10px] bg-emerald-50 dark:bg-emerald-900/40 px-1.5 py-0.5 rounded">{percentage}%</span>
+                              <div key={r.id} className="py-2 border-b border-dashed border-slate-200 dark:border-slate-700 last:border-0">
+                                {/* Header Accordion (Bisa di-klik) */}
+                                <div 
+                                  className="flex justify-between items-center mb-1.5 cursor-pointer group"
+                                  onClick={() => toggleAccordion(r.id)}
+                                >
+                                  <span className="text-slate-700 dark:text-slate-300 text-[13px] font-bold tracking-wide group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
+                                    {r.item}
                                   </span>
+                                  <div className="flex items-center gap-2">
+                                    <span className="font-extrabold text-[13px] text-emerald-600 dark:text-emerald-400">
+                                      {r.completed}/{r.target} <span className="ml-1 text-[10px] bg-emerald-50 dark:bg-emerald-900/40 px-1.5 py-0.5 rounded">{percentage}%</span>
+                                    </span>
+                                    {isExpanded ? 
+                                      <ChevronUp size={16} className="text-slate-400 group-hover:text-emerald-500" /> : 
+                                      <ChevronDown size={16} className="text-slate-400 group-hover:text-emerald-500" />
+                                    }
+                                  </div>
                                 </div>
-                                <div className="w-full bg-slate-100 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
+                                
+                                {/* Progress Bar */}
+                                <div className="w-full bg-slate-100 dark:bg-slate-700 h-1.5 rounded-full overflow-hidden">
                                   <div className="bg-emerald-500 h-full transition-all duration-500" style={{ width: `${Math.min(percentage, 100)}%` }}></div>
                                 </div>
+
+                                {/* Body Accordion (Detail List Pekerjaan) */}
+                                {isExpanded && (
+                                  <div className="mt-3 bg-slate-50 dark:bg-slate-800/80 rounded-xl p-3.5 space-y-2 border border-slate-100 dark:border-slate-700 animate-in fade-in slide-in-from-top-2 duration-300">
+                                    {r.details && r.details.length > 0 ? (
+                                      r.details.map((detail, idx) => (
+                                        <div key={idx} className="flex justify-between items-center text-[12px] border-b border-slate-200 dark:border-slate-700/50 last:border-0 pb-1.5 last:pb-0">
+                                          <span className="text-slate-600 dark:text-slate-400">{detail.name}</span>
+                                          <span className={`font-bold ${detail.real >= detail.target ? 'text-green-600 dark:text-green-500' : 'text-amber-500'}`}>
+                                            {detail.real} / {detail.target}
+                                          </span>
+                                        </div>
+                                      ))
+                                    ) : (
+                                      <div className="text-xs text-slate-400 text-center italic py-2">Belum ada pemetaan data detail.</div>
+                                    )}
+                                  </div>
+                                )}
+
                               </div>
                             );
                           })
