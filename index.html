@@ -68,7 +68,7 @@
         const teamData = {
           assistantManager: { name: "Andri Dwi Ariyanto", role: "Asman PDKB" },
           pdkbJaringan: [
-            { id: 101, name: "Dwi Mulyono", role: "SPV PDKB Jaringan" },
+            { id: 101, name: "Dwi Mulyono", role: "TL PDKB Jaringan" },
             { id: 102, name: "Moch Andiki K.", role: "JTC SUTT/SUTET" },
             { id: 103, name: "Fahmi Imadul B.", role: "JTC SUTT/SUTET" },
             { id: 104, name: "M. Ilham Muzakki", role: "JTC SUTT/SUTET" },
@@ -79,8 +79,8 @@
             { id: 109, name: "Achmad Faried W.", role: "JTC SUTT/SUTET" }
           ],
           pdkbGarduInduk: [
-            { id: 201, name: "M. Annuur Ridwan P.", role: "SPV PDKB GI" },
-            { id: 202, name: "Ramadani Gamarido", role: "JTC GI/GITET" },
+            { id: 201, name: "M. Annuur Ridwan P.", role: "TL PDKB GI" },
+            { id: 202, name: "Ramadani Gamarido", role: "TC GI/GITET" },
             { id: 203, name: "Evrizal Wardhana", role: "JTC GI/GITET" },
             { id: 204, name: "M. Anwar Shiddiq", role: "JTC GI/GITET" }
           ],
@@ -100,8 +100,6 @@
           });
           
           const [activeSemester, setActiveSemester] = useState('semester1');
-          
-          // State untuk mengatur Accordion mana yang sedang terbuka (menyimpan ID item)
           const [expandedItems, setExpandedItems] = useState({});
 
           const [isLoading, setIsLoading] = useState(true);
@@ -133,7 +131,6 @@
                   throw new Error("Link CSV tidak valid atau belum di-Publish sebagai CSV.");
                 }
 
-                // Parser CSV ke Array 2D
                 const rows = [];
                 const lines = text.split(/\r?\n/).filter(line => line.trim() !== '');
                 
@@ -155,11 +152,10 @@
                   rows.push(row);
                 });
 
-                // Fungsi Pembantu
+                // Fungsi Pembantu Konversi
                 const getVal = (colChar, rowNum) => {
                     const colIdx = colChar.toUpperCase().charCodeAt(0) - 65; 
                     const rowIdx = rowNum - 1; 
-                    
                     if (rows[rowIdx] && rows[rowIdx][colIdx] !== undefined) {
                         const rawData = rows[rowIdx][colIdx].replace(/[^0-9.-]+/g, "");
                         return Number(rawData) || 0;
@@ -167,7 +163,6 @@
                     return 0; 
                 };
 
-                // Fungsi Pembantu Baru: Mengambil Teks (Untuk Nama Pekerjaan)
                 const getStr = (colChar, rowNum) => {
                     const colIdx = colChar.toUpperCase().charCodeAt(0) - 65; 
                     const rowIdx = rowNum - 1; 
@@ -177,7 +172,29 @@
                     return "";
                 };
 
-                // Fungsi Pembantu Baru: Menarik Daftar Pekerjaan per Baris (Accordion)
+                // Filter Cerdas: Daftar Judul Pekerjaan yang Akan DIHAPUS/DISEMBUNYIKAN
+                const blacklistedNames = [
+                  "asesmen gi level ii",
+                  "pemeliharaan mtu",
+                  "pemeliharaan konektor",
+                  "pemeliharaan insulator dan junction",
+                  "pemeliharaan konduktor",
+                  "technical",
+                  "pemeliharaan gsw",
+                  "non technical",
+                  "preventive action transmisi",
+                  "asesmen transmisi level 1",
+                  "asesmen transmisi level 2",
+                  "asesmen transmisi level i (cui)", // Tambahan baru
+                  "asesmen transmisi level ii",      // Tambahan baru (menggunakan romawi)
+                  "pemeliharaan insulator, junction dan aksesoris",
+                  "pencegahan gangguang akibat petir", 
+                  "pencegahan gangguan akibat petir",  
+                  "pemeliharaan tla",
+                  "pencegahan gangguan akibat benda asing"
+                ];
+
+                // Fungsi Menarik Daftar Detail dengan Fitur Auto-Filter
                 const getDetailsList = (nameCol, targetCol, realCol, startRow, endRow) => {
                     let list = [];
                     for (let i = startRow; i <= endRow; i++) {
@@ -185,17 +202,21 @@
                         const target = getVal(targetCol, i);
                         const real = getVal(realCol, i);
                         
-                        // Hanya tangkap baris yang ada namanya atau ada angkanya (abaikan sel kosong)
-                        if (name !== "" || target > 0 || real > 0) {
-                            list.push({ name: name || `Pekerjaan Baris ${i}`, target, real });
+                        const lowerName = name.toLowerCase().trim();
+                        
+                        // Periksa apakah nama pekerjaan ini ada di daftar blacklist
+                        const isBlacklisted = blacklistedNames.some(b => lowerName === b || lowerName.includes(b));
+                        
+                        // Hanya masukkan jika ada isinya DAN bukan merupakan judul kategori (blacklist)
+                        if (name !== "" && !isBlacklisted) {
+                            list.push({ name: name, target, real });
                         }
                     }
                     return list;
                 };
 
-                // Fungsi Pembantu Baru: Membungkus Kategori & Menghitung Total Otomatis
+                // Fungsi Membuat Kategori Data
                 const makeCategory = (id, item, category, details) => {
-                    // Total Target dan Realisasi dihitung otomatis dari penjumlahan list
                     const completed = details.reduce((sum, d) => sum + d.real, 0);
                     const target = details.reduce((sum, d) => sum + d.target, 0);
                     return { id, item, category, completed, target, details };
@@ -248,10 +269,8 @@
             { id: 'Target', label: 'Target Kinerja', icon: Target, hasDropdown: true }
           ];
 
-          // Ambil data sesuai dengan Semester yang sedang aktif dipilih
           const currentDisplayData = sheetData[activeSemester] || [];
 
-          // Persiapan Data untuk Grafik Recharts
           const formatChartData = (category) => {
             return currentDisplayData
               .filter(d => d.category === category)
@@ -281,7 +300,6 @@
             return null;
           };
 
-          // Fungsi untuk Toggle Accordion Buka/Tutup
           const toggleAccordion = (id) => {
             setExpandedItems(prev => ({
               ...prev,
@@ -296,8 +314,6 @@
               <div className="sticky top-0 z-30">
                 <nav className="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 px-4 py-3 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 transition-colors duration-300">
                   <div className="flex items-center gap-4">
-                    
-                    {/* MENU HAMBURGER UTAMA POP-OUT DROPDOWN */}
                     <div className="relative">
                       <button 
                         onClick={() => setIsMainMenuOpen(!isMainMenuOpen)}
@@ -378,28 +394,6 @@
                             {menu.hasDropdown && <ChevronDown size={10} className="opacity-70 group-hover:opacity-100 transition-transform duration-200 group-hover:rotate-180" />}
                           </div>
                         </button>
-
-                        {menu.hasDropdown && (
-                          <div className="absolute left-1/2 -translate-x-1/2 top-full mt-0 w-36 bg-white dark:bg-slate-800 rounded-b-lg shadow-xl border border-t-0 border-slate-200 dark:border-slate-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-                            <div className="py-1">
-                              <div className="px-3 py-1.5 text-[10px] font-bold text-slate-400 dark:text-slate-500 border-b border-slate-100 dark:border-slate-700/50 uppercase tracking-wider text-center">
-                                Pilih Tahun
-                              </div>
-                              {historyYears.map(year => (
-                                <button 
-                                  key={year}
-                                  className="block w-full text-center px-4 py-2 text-xs font-medium text-slate-700 dark:text-slate-300 hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-                                  onClick={(e) => {
-                                    e.stopPropagation();
-                                    alert(`Tahun ${year} dipilih untuk ${menu.label}`);
-                                  }}
-                                >
-                                  Tahun {year}
-                                </button>
-                              ))}
-                            </div>
-                          </div>
-                        )}
                       </div>
                     ))}
                   </div>
@@ -426,7 +420,6 @@
                         Grafik Performa Target vs Realisasi
                       </h2>
                       
-                      {/* Toggle Mini Internal */}
                       <div className="bg-slate-100 dark:bg-slate-900 p-1.5 rounded-lg inline-flex shadow-inner">
                         <button 
                           onClick={() => setActiveSemester('semester1')} 
@@ -473,9 +466,7 @@
 
                       {/* Grafik Gardu Induk */}
                       <div className="w-full relative">
-                        {/* Garis Pembatas Vertikal (Khusus Mode Desktop) */}
                         <div className="hidden md:block absolute -left-4 top-4 bottom-4 w-px bg-slate-200 dark:bg-slate-700/80"></div>
-                        
                         <h3 className="text-xs font-bold text-emerald-600 dark:text-emerald-400 tracking-widest mb-6 text-center">KETERCAPAIAN GARDU INDUK</h3>
                         <div className="h-64 w-full">
                           <ResponsiveContainer width="100%" height="100%">
@@ -505,7 +496,6 @@
                         <h2 className="text-xl font-extrabold text-slate-800 dark:text-slate-100 tracking-tight">PERSONIL TIM</h2>
                       </div>
                       
-                      {/* POSISI ASMAN TIM */}
                       <div className="mb-4">
                         <div className="flex justify-between items-center py-2.5 border-b border-dashed border-slate-200 dark:border-slate-700 text-sm">
                           <span className="text-slate-500 dark:text-slate-400">Asman PDKB</span>
@@ -547,7 +537,6 @@
 
                             return (
                               <div key={r.id} className="py-2 border-b border-dashed border-slate-200 dark:border-slate-700 last:border-0">
-                                {/* Header Accordion (Bisa di-klik) */}
                                 <div 
                                   className="flex justify-between items-center mb-1.5 cursor-pointer group"
                                   onClick={() => toggleAccordion(r.id)}
@@ -566,12 +555,10 @@
                                   </div>
                                 </div>
                                 
-                                {/* Progress Bar */}
                                 <div className="w-full bg-slate-100 dark:bg-slate-700 h-1.5 rounded-full overflow-hidden">
                                   <div className="bg-blue-500 h-full transition-all duration-500" style={{ width: `${Math.min(percentage, 100)}%` }}></div>
                                 </div>
 
-                                {/* Body Accordion (Detail List Pekerjaan) */}
                                 {isExpanded && (
                                   <div className="mt-3 bg-slate-50 dark:bg-slate-800/80 rounded-xl p-3.5 space-y-2 border border-slate-100 dark:border-slate-700 animate-in fade-in slide-in-from-top-2 duration-300">
                                     {r.details && r.details.length > 0 ? (
@@ -584,11 +571,10 @@
                                         </div>
                                       ))
                                     ) : (
-                                      <div className="text-xs text-slate-400 text-center italic py-2">Belum ada pemetaan data detail.</div>
+                                      <div className="text-xs text-slate-400 text-center italic py-2">Tidak ada data.</div>
                                     )}
                                   </div>
                                 )}
-
                               </div>
                             );
                           })
@@ -611,7 +597,6 @@
 
                             return (
                               <div key={r.id} className="py-2 border-b border-dashed border-slate-200 dark:border-slate-700 last:border-0">
-                                {/* Header Accordion (Bisa di-klik) */}
                                 <div 
                                   className="flex justify-between items-center mb-1.5 cursor-pointer group"
                                   onClick={() => toggleAccordion(r.id)}
@@ -630,12 +615,10 @@
                                   </div>
                                 </div>
                                 
-                                {/* Progress Bar */}
                                 <div className="w-full bg-slate-100 dark:bg-slate-700 h-1.5 rounded-full overflow-hidden">
                                   <div className="bg-emerald-500 h-full transition-all duration-500" style={{ width: `${Math.min(percentage, 100)}%` }}></div>
                                 </div>
 
-                                {/* Body Accordion (Detail List Pekerjaan) */}
                                 {isExpanded && (
                                   <div className="mt-3 bg-slate-50 dark:bg-slate-800/80 rounded-xl p-3.5 space-y-2 border border-slate-100 dark:border-slate-700 animate-in fade-in slide-in-from-top-2 duration-300">
                                     {r.details && r.details.length > 0 ? (
@@ -648,11 +631,10 @@
                                         </div>
                                       ))
                                     ) : (
-                                      <div className="text-xs text-slate-400 text-center italic py-2">Belum ada pemetaan data detail.</div>
+                                      <div className="text-xs text-slate-400 text-center italic py-2">Tidak ada data.</div>
                                     )}
                                   </div>
                                 )}
-
                               </div>
                             );
                           })
