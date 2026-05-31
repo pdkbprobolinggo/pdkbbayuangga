@@ -91,18 +91,18 @@
           </svg>
         );
 
+        // Ikon Tambahan untuk Detail CV
         const Mail = ({ size = 16, className = "" }) => <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>;
         const Phone = ({ size = 16, className = "" }) => <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>;
-
-        /* Ikon Tambahan untuk Modal CV */
-        const XIcon = ({ size = 24, className = "" }) => <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>;
         const AwardIcon = ({ size = 16, className = "" }) => <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>;
         const BadgeIcon = ({ size = 16, className = "" }) => <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"></path></svg>;
 
+        // --- DATA TIM PDKB ---
         const teamData = {
           assistantManager: { name: "Andri Dwi Ariyanto", role: "Asman PDKB" },
           pdkbJaringan: [
-            { id: 101, name: "Dwi Mulyono", role: "SPV PDKB Jaringan", nip: "8509123ZY", phone: "0812-3456-7890", sertifikat: ["Diklat Pengawas K3", "Sertifikasi PDKB TM", "Leadership Supervisory"] },
+            // Penambahan foto untuk Dwi Mulyono
+            { id: 101, name: "Dwi Mulyono", role: "TL PDKB Jaringan", nip: "8509123ZY", phone: "0812-3456-7890", sertifikat: ["Diklat Pengawas K3", "Sertifikasi PDKB TM", "Leadership Supervisory"], photo: "./images/DWI MULYONO.jpg" },
             { id: 102, name: "Moch Andiki K.", role: "JTC SUTT/SUTET", nip: "9210456ZY", phone: "0812-3456-7891", sertifikat: ["Sertifikasi PDKB TM", "Bekerja di Ketinggian (TKBT)", "K3 Listrik"] },
             { id: 103, name: "Fahmi Imadul B.", role: "JTC SUTT/SUTET", nip: "9311789ZY", phone: "0812-3456-7892", sertifikat: ["Sertifikasi PDKB TM", "Bekerja di Ketinggian (TKBT)", "First Aid K3"] },
             { id: 104, name: "M. Ilham Muzakki", role: "JTC SUTT/SUTET", nip: "9412123ZY", phone: "0812-3456-7893", sertifikat: ["Sertifikasi PDKB TM", "Bekerja di Ketinggian (TKBT)"] },
@@ -113,8 +113,9 @@
             { id: 109, name: "Achmad Faried W.", role: "JTC SUTT/SUTET", nip: "9917789ZY", phone: "0812-3456-7898", sertifikat: ["Sertifikasi PDKB TM", "Bekerja di Ketinggian (TKBT)"] }
           ],
           pdkbGarduInduk: [
-            { id: 201, name: "M. Annuur Ridwan P.", role: "SPV PDKB GI", nip: "8608123ZY", phone: "0813-1122-3344", sertifikat: ["Diklat Pengawas K3", "Sertifikasi PDKB GI", "Ahli K3 Umum"] },
-            { id: 202, name: "Ramadani Gamarido", role: "JTC GI/GITET", nip: "9109456ZY", phone: "0813-1122-3345", sertifikat: ["Sertifikasi PDKB GI", "Pemeliharaan Trafo", "K3 Listrik"] },
+            // Penambahan foto untuk M. Annuur Ridwan P.
+            { id: 201, name: "M. Annuur Ridwan P.", role: "TL PDKB GI", nip: "8608123ZY", phone: "0813-1122-3344", sertifikat: ["Diklat Pengawas K3", "Sertifikasi PDKB GI", "Ahli K3 Umum"], photo: "./images/ANNUUR RIDWAN PRIMANTHO.jpg" },
+            { id: 202, name: "Ramadani Gamarido", role: "TC GI/GITET", nip: "9109456ZY", phone: "0813-1122-3345", sertifikat: ["Sertifikasi PDKB GI", "Pemeliharaan Trafo", "K3 Listrik"] },
             { id: 203, name: "Evrizal Wardhana", role: "JTC GI/GITET", nip: "9310789ZY", phone: "0813-1122-3346", sertifikat: ["Sertifikasi PDKB GI", "Pemeliharaan Switchyard", "First Aid K3"] },
             { id: 204, name: "M. Anwar Shiddiq", role: "JTC GI/GITET", nip: "9511123ZY", phone: "0813-1122-3347", sertifikat: ["Sertifikasi PDKB GI", "Pemeliharaan Switchyard"] }
           ],
@@ -126,18 +127,17 @@
 
         const historyYears = [2026, 2025, 2024, 2023, 2022, 2021, 2020];
 
-        // Helper Fungsi Inisial Nama
+        // Helper Fungsi Inisial Nama & Email Dummy
         const getInitials = (name) => {
           return name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
         };
-        // Helper Buat Email Dummy
         const getDummyEmail = (name) => {
           return `${name.split(' ')[0].toLowerCase().replace('.', '')}@pln.co.id`;
         };
 
         function App() {
           const [topMenu, setTopMenu] = useState('Overview');
-          const [activeTab, setActiveTab] = useState('pdkbJaringan');
+          const [activeTab, setActiveTab] = useState('pdkbJaringan'); // Untuk Tab Tim di halaman dashboard
           
           const [sheetData, setSheetData] = useState({
             semester1: teamData.defaultSemester1,
@@ -147,11 +147,10 @@
           });
           
           const [activeSemester, setActiveSemester] = useState('semester1');
-          const [currentPage, setCurrentPage] = useState('dashboard');
-          const [expandedItems, setExpandedItems] = useState({});
+          const [currentPage, setCurrentPage] = useState('dashboard'); // 'dashboard', 'fte', 'personil-jaringan', 'personil-gardu-induk'
           
-          // State untuk mengatur tampilan CV Personil (sekarang accordion/pop-down)
-          const [expandedCVs, setExpandedCVs] = useState({});
+          const [expandedItems, setExpandedItems] = useState({}); // Accordion Rincian Pekerjaan
+          const [expandedCVs, setExpandedCVs] = useState({}); // Accordion Pop-down CV
 
           const [isLoading, setIsLoading] = useState(true);
           const [errorMessage, setErrorMessage] = useState("");
@@ -227,27 +226,15 @@
 
                 // --- FILTER CERDAS: BLACKLIST NAMA PEKERJAAN KOSONG/JUDUL ---
                 const blacklistedNames = [
-                  "asesmen gi level ii",
-                  "pemeliharaan mtu",
-                  "pemeliharaan konektor",
-                  "pemeliharaan insulator dan junction",
-                  "pemeliharaan konduktor",
-                  "technical",
-                  "pemeliharaan gsw",
-                  "non technical",
-                  "preventive action transmisi",
-                  "asesmen transmisi level 1",
-                  "asesmen transmisi level 2",
-                  "asesmen transmisi level i (cui)",
-                  "asesmen transmisi level ii",
-                  "pemeliharaan insulator, junction dan aksesoris",
-                  "pencegahan gangguang akibat petir", 
-                  "pencegahan gangguan akibat petir",  
-                  "pemeliharaan tla",
-                  "pencegahan gangguan akibat benda asing"
+                  "asesmen gi level ii", "pemeliharaan mtu", "pemeliharaan konektor",
+                  "pemeliharaan insulator dan junction", "pemeliharaan konduktor", "technical",
+                  "pemeliharaan gsw", "non technical", "preventive action transmisi",
+                  "asesmen transmisi level 1", "asesmen transmisi level 2",
+                  "asesmen transmisi level i (cui)", "asesmen transmisi level ii",
+                  "pemeliharaan insulator, junction dan aksesoris", "pencegahan gangguang akibat petir", 
+                  "pencegahan gangguan akibat petir", "pemeliharaan tla", "pencegahan gangguan akibat benda asing"
                 ];
 
-                // Menarik Daftar Detail Accordion
                 const getDetailsList = (nameCol, targetCol, realCol, startRow, endRow) => {
                     let list = [];
                     for (let i = startRow; i <= endRow; i++) {
@@ -265,14 +252,13 @@
                     return list;
                 };
 
-                // Membuat Kategori Induk
                 const makeCategory = (id, item, category, details) => {
                     const completed = details.reduce((sum, d) => sum + d.real, 0);
                     const target = details.reduce((sum, d) => sum + d.target, 0);
                     return { id, item, category, completed, target, details };
                 };
 
-                // Menarik Data Gabungan untuk FTE
+                // Menarik Data Gabungan untuk FTE dan Waktu Efektif
                 const getCombinedChartData = (startRow1, endRow1, col1, startRow2, endRow2, col2, labelCol) => {
                     let list = [];
                     const count = endRow1 - startRow1 + 1;
@@ -281,7 +267,7 @@
                         const valJaringan = getVal(col1, startRow1 + i);
                         const valGI = getVal(col2, startRow2 + i);
                         
-                        // Abaikan baris bernilai nol agar grafik tidak anjlok
+                        // FIX SKALA: Hanya masukkan ke grafik jika nilainya bukan 0
                         if (valJaringan !== 0 || valGI !== 0) {
                             list.push({ name: label, Jaringan: valJaringan, GarduInduk: valGI });
                         }
@@ -289,7 +275,7 @@
                     return list;
                 };
 
-                // --- MAPPING DATA SEMESTER 1 ---
+                // --- MAPPING DATA ---
                 const sem1Data = [
                   makeCategory('g-1', "PREVENTIVE ACTION", 'Gardu Induk', getDetailsList('A', 'C', 'D', 4, 14)),
                   makeCategory('g-2', "CORRECTIVE ACTION", 'Gardu Induk', getDetailsList('A', 'C', 'D', 16, 29)),
@@ -299,7 +285,6 @@
                   makeCategory('j-3', "PROGRAM KEANDALAN", 'Jaringan', getDetailsList('A', 'C', 'D', 73, 88))
                 ];
 
-                // --- MAPPING DATA SEMESTER 2 ---
                 const sem2Data = [
                   makeCategory('g-4', "PREVENTIVE ACTION", 'Gardu Induk', getDetailsList('A', 'F', 'G', 4, 14)),
                   makeCategory('g-5', "CORRECTIVE ACTION", 'Gardu Induk', getDetailsList('A', 'F', 'G', 16, 29)),
@@ -309,7 +294,6 @@
                   makeCategory('j-6', "PROGRAM KEANDALAN", 'Jaringan', getDetailsList('A', 'F', 'G', 73, 88))
                 ];
 
-                // --- MAPPING DATA FTE ---
                 const fteYBYData = getCombinedChartData(107, 115, 'B', 129, 137, 'B', 'A');
                 const waktuEfektifData = getCombinedChartData(97, 105, 'B', 119, 127, 'B', 'A');
 
@@ -370,17 +354,17 @@
           };
 
           const toggleAccordion = (id) => {
-            setExpandedItems(prev => ({
-              ...prev,
-              [id]: !prev[id]
-            }));
+            setExpandedItems(prev => ({ ...prev, [id]: !prev[id] }));
           };
 
           const toggleCVAccordion = (id) => {
-            setExpandedCVs(prev => ({
-              ...prev,
-              [id]: !prev[id]
-            }));
+            setExpandedCVs(prev => ({ ...prev, [id]: !prev[id] }));
+          };
+
+          // Hapus gambar jika error load agar kembali ke inisial nama
+          const handleImageError = (e) => {
+            e.target.style.display = 'none';
+            e.target.nextSibling.style.display = 'flex';
           };
 
           return (
@@ -488,7 +472,6 @@
                                       className="block w-full text-center px-4 py-2 text-xs font-medium text-slate-700 dark:text-slate-300 hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                                       onClick={(e) => {
                                         e.stopPropagation();
-                                        // Peta Routing Khusus Dropdown
                                         if (item === 'Personil') {
                                           setCurrentPage(menu.id === 'Jaringan' ? 'personil-jaringan' : 'personil-gardu-induk');
                                         } else if (item === 'FTE') {
@@ -532,7 +515,7 @@
 
               {/* AREA HALAMAN (ROUTING SEDERHANA) */}
 
-              {/* HALAMAN PERSONIL (CV DIRECTORY) - TERPISAH JARINGAN & GI */}
+              {/* --- HALAMAN PERSONIL (CV DIRECTORY) --- */}
               {(currentPage === 'personil-jaringan' || currentPage === 'personil-gardu-induk') ? (
                 <main className="max-w-7xl mx-auto p-4 md:p-6 lg:p-8 animate-in fade-in duration-300">
                   <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
@@ -544,18 +527,10 @@
                       Kembali ke Dashboard
                     </button>
                     
-                    {/* Badge/Header Khusus bergantung Halaman Tim */}
                     <div className={`px-4 py-2 rounded-lg shadow-sm font-bold text-sm flex items-center gap-2 text-white ${currentPage === 'personil-jaringan' ? 'bg-blue-600' : 'bg-emerald-600'}`}>
                       {currentPage === 'personil-jaringan' ? <TowerIcon size={18} /> : <SwitchyardIcon size={18} />}
                       DIREKTORI {currentPage === 'personil-jaringan' ? 'TIM JARINGAN' : 'TIM GARDU INDUK'}
                     </div>
-                  </div>
-
-                  <div className="mb-6">
-                    <h2 className="text-2xl font-extrabold text-slate-800 dark:text-slate-100">
-                      Profil Personil - {currentPage === 'personil-jaringan' ? 'SUTT/SUTET' : 'GI/GITET'}
-                    </h2>
-                    <p className="text-slate-500 dark:text-slate-400 mt-1 text-sm">Klik tombol "Lihat CV Lengkap" untuk melihat rincian kompetensi dan informasi kontak.</p>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
@@ -565,10 +540,22 @@
                         <div className={`h-16 ${currentPage === 'personil-jaringan' ? 'bg-gradient-to-r from-blue-500 to-indigo-600' : 'bg-gradient-to-r from-emerald-500 to-teal-600'}`}></div>
                         
                         <div className="px-6 pb-6 flex-grow flex flex-col items-center -mt-10">
-                          <div className="h-20 w-20 rounded-full bg-white dark:bg-slate-800 p-1.5 shadow-md mb-3">
-                            <div className={`h-full w-full rounded-full flex items-center justify-center font-bold text-2xl ${currentPage === 'personil-jaringan' ? 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300' : 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900 dark:text-emerald-300'}`}>
-                              {getInitials(member.name)}
-                            </div>
+                          
+                          {/* AVATAR DENGAN LOGIKA FOTO PROFIL */}
+                          <div className="h-20 w-20 rounded-full bg-white dark:bg-slate-800 p-1.5 shadow-md mb-3 relative overflow-hidden flex items-center justify-center">
+                            {member.photo ? (
+                              <>
+                                <img src={member.photo} alt={member.name} className="h-full w-full object-cover rounded-full bg-slate-100 dark:bg-slate-700" onError={handleImageError} />
+                                {/* Fallback jika foto gagal dimuat (nama file salah/tidak ada) */}
+                                <div style={{display: 'none'}} className={`h-full w-full rounded-full flex items-center justify-center font-bold text-2xl ${currentPage === 'personil-jaringan' ? 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300' : 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900 dark:text-emerald-300'}`}>
+                                  {getInitials(member.name)}
+                                </div>
+                              </>
+                            ) : (
+                              <div className={`h-full w-full rounded-full flex items-center justify-center font-bold text-2xl ${currentPage === 'personil-jaringan' ? 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300' : 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900 dark:text-emerald-300'}`}>
+                                {getInitials(member.name)}
+                              </div>
+                            )}
                           </div>
                           
                           <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 text-center leading-tight mb-1">{member.name}</h3>
@@ -637,7 +624,6 @@
                       </div>
                     ))}
                   </div>
-
                 </main>
 
               ) : currentPage === 'fte' ? (
@@ -650,12 +636,6 @@
                     <svg xmlns="http://www.w3.org/2000/svg" width={16} height={16} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
                     Kembali ke Dashboard Utama
                   </button>
-
-                  {errorMessage && (
-                    <div className="mb-6 bg-amber-50 dark:bg-amber-950/30 border-l-4 border-amber-500 p-4 rounded-md text-amber-800 dark:text-amber-400 text-xs font-medium shadow-sm">
-                      💡 {errorMessage}
-                    </div>
-                  )}
 
                   <div className="bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 shadow-sm p-6 mb-8">
                     <h2 className="text-lg font-extrabold text-slate-800 dark:text-slate-100 mb-6 uppercase tracking-wider text-center">
