@@ -149,7 +149,8 @@
             certificates: {} 
           });
           
-          const [activeSemester, setActiveSemester] = useState('semester1');
+          // MENGUBAH DEFAULT TAMPILAN AWAL MENJADI SEMESTER 2
+          const [activeSemester, setActiveSemester] = useState('semester2');
           const [currentPage, setCurrentPage] = useState('dashboard');
           const [personilType, setPersonilType] = useState('Jaringan'); 
           const [expandedItems, setExpandedItems] = useState({});
@@ -393,24 +394,31 @@
                     <p className="text-xs text-slate-400 italic">Memuat data dari sistem...</p>
                 ) : hasCertificates ? (
                     <ul className="space-y-2">
-                        {sheetData.certificates[memberName].map((cert, idx) => (
-                            <li key={idx} className="flex justify-between items-center bg-slate-50 dark:bg-slate-900/50 p-2.5 rounded-lg border border-slate-100 dark:border-slate-700/50 group hover:border-blue-200 dark:hover:border-blue-800 transition-colors">
-                                <span className="text-xs font-semibold text-slate-700 dark:text-slate-300 flex items-center gap-2 truncate">
-                                    <span className={`w-1.5 h-1.5 rounded-full ${primaryColor === 'blue' ? 'bg-blue-400' : primaryColor === 'emerald' ? 'bg-emerald-400' : 'bg-amber-400'}`}></span>
-                                    {cert.name}
-                                </span>
-                                {cert.link ? (
-                                    <button 
-                                      onClick={() => setSelectedCertificate({ name: cert.name, link: cert.link, owner: memberName })}
-                                      className={`ml-2 flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-md text-[10px] font-bold uppercase tracking-wide transition-all shadow-sm ${certColor} dark:text-white dark:bg-blue-600 dark:hover:bg-blue-500`}
-                                    >
-                                      Lihat Dokumen <ExternalLinkIcon size={12} />
-                                    </button>
-                                ) : (
-                                    <span className="ml-2 flex-shrink-0 text-[10px] uppercase font-bold tracking-wide text-slate-400 dark:text-slate-500 italic bg-slate-100 dark:bg-slate-800 px-3 py-1.5 rounded-md">Belum Ada File</span>
-                                )}
-                            </li>
-                        ))}
+                        {sheetData.certificates[memberName].map((cert, idx) => {
+                            // IDE 1: Smart Text Cleaner yang dipercanggih
+                            // Menghapus berbagai awalan seperti "Sertifikat", "Sertifikasi Kompetensi", "Pelatihan", "Diklat", dll
+                            let cleanName = cert.name.replace(/^(Sertifikat Kompetensi|Sertifikat Pelatihan|Sertifikasi Kompetensi|Sertifikat|Sertifikasi|Pelatihan|Diklat|Bimtek)\s*(:|-)?\s*/i, '');
+                            
+                            return (
+                                <li key={idx} className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2.5 sm:gap-4 bg-slate-50 dark:bg-slate-900/50 p-3 rounded-lg border border-slate-100 dark:border-slate-700/50 group hover:border-blue-200 dark:hover:border-blue-800 transition-colors">
+                                    <span className="text-xs font-semibold text-slate-700 dark:text-slate-300 flex items-start gap-2 flex-1 w-full" title={cert.name}>
+                                        <span className={`mt-1 flex-shrink-0 w-1.5 h-1.5 rounded-full ${primaryColor === 'blue' ? 'bg-blue-400' : primaryColor === 'emerald' ? 'bg-emerald-400' : 'bg-amber-400'}`}></span>
+                                        {/* IDE 2: Efek Truncate/Line-Clamp membatasi teks maksimal 2 baris */}
+                                        <span className="leading-relaxed line-clamp-2">{cleanName}</span>
+                                    </span>
+                                    {cert.link ? (
+                                        <button 
+                                          onClick={() => setSelectedCertificate({ name: cert.name, link: cert.link, owner: memberName })}
+                                          className={`w-full sm:w-auto flex-shrink-0 flex items-center justify-center sm:justify-start gap-1.5 px-3 py-2 sm:py-1.5 rounded-md text-[10px] font-bold uppercase tracking-wide transition-all shadow-sm ${certColor} dark:text-white dark:bg-blue-600 dark:hover:bg-blue-500`}
+                                        >
+                                          Lihat Dokumen <ExternalLinkIcon size={12} />
+                                        </button>
+                                    ) : (
+                                        <span className="w-full sm:w-auto flex-shrink-0 flex items-center justify-center text-[10px] uppercase font-bold tracking-wide text-slate-400 dark:text-slate-500 italic bg-slate-100 dark:bg-slate-800 px-3 py-2 sm:py-1.5 rounded-md">Belum Ada File</span>
+                                    )}
+                                </li>
+                            );
+                        })}
                     </ul>
                 ) : (
                     <p className="text-xs text-slate-400 italic">Belum ada data sertifikat di Spreadsheet untuk personil ini.</p>
