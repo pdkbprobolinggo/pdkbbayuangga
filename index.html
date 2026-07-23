@@ -10,22 +10,7 @@
       tailwind.config = {
         darkMode: 'class',
         theme: {
-          extend: {
-            animation: {
-              'fade-in-up': 'fadeInUp 0.4s ease-out',
-              'zoom-in': 'zoomIn 0.3s ease-out'
-            },
-            keyframes: {
-              fadeInUp: {
-                '0%': { opacity: '0', transform: 'translateY(10px)' },
-                '100%': { opacity: '1', transform: 'translateY(0)' },
-              },
-              zoomIn: {
-                '0%': { opacity: '0', transform: 'scale(0.95)' },
-                '100%': { opacity: '1', transform: 'scale(1)' },
-              }
-            }
-          }
+          extend: {}
         }
       }
     </script>
@@ -35,7 +20,9 @@
     <script crossorigin src="https://unpkg.com/react-is@18/umd/react-is.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/prop-types/prop-types.min.js"></script>
     
+    <!-- FIX: Mengunci Babel ke versi 7.21.4 -->
     <script src="https://unpkg.com/@babel/standalone@7.21.4/babel.min.js"></script>
+    <!-- FIX: Mengunci Recharts ke versi stabil -->
     <script crossorigin src="https://unpkg.com/recharts@2.12.7/umd/Recharts.js"></script>
 </head>
 <body class="bg-[#f4f6f9] dark:bg-slate-900 transition-colors duration-300">
@@ -59,12 +46,12 @@
         // --- KONFIGURASI LINK CSV SPREADSHEET MIRROR ---
         const SPREADSHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSqYJdD6mLpndU8JFPQLdOG73AMcSAfW8gmU3QYvgbbNJEufc_af9JBM-k4DuNIpui6hoB17OGNPDdS/pub?output=csv';
 
-        // --- IKON-IKON SVG ---
         const MenuIcon = ({ size = 24, className = "" }) => <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>;
         const Zap = ({ size = 24, className = "", fill="none" }) => <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill={fill} stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>;
-        const RefreshCw = ({ size = 24, className = "" }) => <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 9 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>;
+        const RefreshCw = ({ size = 24, className = "" }) => <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>;
         const Moon = ({ size = 24, className = "" }) => <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>;
         const Sun = ({ size = 24, className = "" }) => <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>;
+        
         const Target = ({ size = 24, className = "" }) => <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>;
         const ChevronDown = ({ size = 12, className = "" }) => <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className={className}><polyline points="6 9 12 15 18 9"></polyline></svg>;
         const ChevronUp = ({ size = 12, className = "" }) => <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className={className}><polyline points="18 15 12 9 6 15"></polyline></svg>;
@@ -73,8 +60,6 @@
         const ArrowLeft = ({ size = 18, className = "" }) => <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className={className}><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>;
         const BadgeIcon = ({ size = 18, className = "" }) => <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line><path d="M8 14h.01"></path><path d="M12 14h.01"></path><path d="M16 14h.01"></path><path d="M8 18h.01"></path><path d="M12 18h.01"></path><path d="M16 18h.01"></path></svg>;
         const AwardIcon = ({ size = 18, className = "" }) => <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>;
-        const ExternalLinkIcon = ({ size = 14, className = "" }) => <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>;
-        const XIcon = ({ size = 24, className = "" }) => <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>;
         
         const TowerIcon = ({ size = 18, className = "" }) => (
             <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
@@ -123,18 +108,58 @@
 
         const historyYears = [2026, 2025, 2024, 2023, 2022, 2021, 2020];
 
-        // Helper Fungsi Inisial Nama & Cek Embed URL Google Drive
+        // Helper Fungsi Inisial Nama
         const getInitials = (name) => {
           return name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
         };
 
+        // Helper Konverter Embed Google Drive
         const getEmbedUrl = (url) => {
-            if (!url) return '';
-            // Auto convert Google Drive /view links to /preview for iframes
-            if (url.includes('drive.google.com/file/d/')) {
-                return url.replace(/\/view.*$/, '/preview');
+            if (!url) return null;
+            if (url.includes('drive.google.com')) {
+                return url.replace(/\/view.*$/, '/preview').replace(/\/edit.*$/, '/preview');
             }
             return url;
+        };
+
+        // KOMPONEN POP-UP MODAL PREVIEW
+        const PreviewModal = ({ cert, onClose }) => {
+            if (!cert) return null;
+            const embedUrl = getEmbedUrl(cert.url);
+            return (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm animate-in fade-in duration-200" onClick={onClose}>
+                    <div className="bg-white dark:bg-slate-800 rounded-2xl w-full max-w-4xl h-[85vh] flex flex-col shadow-2xl overflow-hidden border border-slate-700" onClick={e => e.stopPropagation()}>
+                        <div className="p-4 border-b border-slate-200 dark:border-slate-700 flex justify-between items-center bg-slate-50 dark:bg-slate-800/50">
+                            <div>
+                                <h3 className="font-bold text-slate-800 dark:text-slate-100 text-base">{cert.rawTitle}</h3>
+                                {cert.expiryDate && (
+                                    <p className="text-xs text-slate-500">Masa Berlaku: <span className="font-semibold">{cert.expiryDate}</span></p>
+                                )}
+                            </div>
+                            <div className="flex items-center gap-2">
+                                {cert.url && (
+                                    <a href={cert.url} target="_blank" rel="noreferrer" className="px-3 py-1.5 text-xs font-semibold bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition shadow-sm">
+                                        Buka di Tab Baru ↗
+                                    </a>
+                                )}
+                                <button onClick={onClose} className="p-1.5 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 font-bold">
+                                    ✕
+                                </button>
+                            </div>
+                        </div>
+                        <div className="flex-1 bg-slate-100 dark:bg-slate-900 relative">
+                            {embedUrl ? (
+                                <iframe src={embedUrl} className="w-full h-full border-0" title="Preview Dokumen" allow="autoplay"></iframe>
+                            ) : (
+                                <div className="flex flex-col items-center justify-center h-full text-slate-400 p-6 text-center">
+                                    <span className="text-4xl mb-3">📄</span>
+                                    <p className="font-medium text-sm">Link dokumen tidak valid atau belum diisi.</p>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            );
         };
 
         function App() {
@@ -149,18 +174,17 @@
             certificates: {} 
           });
           
-          // MENGUBAH DEFAULT TAMPILAN AWAL MENJADI SEMESTER 2
+          // DEFAULT langsung ke Semester 2
           const [activeSemester, setActiveSemester] = useState('semester2');
           const [currentPage, setCurrentPage] = useState('dashboard');
           const [personilType, setPersonilType] = useState('Jaringan'); 
           const [expandedItems, setExpandedItems] = useState({});
           const [expandedCVs, setExpandedCVs] = useState({}); 
-          
-          // State Khusus Untuk Preview Sertifikat Dokumen
-          const [selectedCertificate, setSelectedCertificate] = useState(null);
+          const [selectedCert, setSelectedCert] = useState(null); // State Modal Preview
 
           const [isLoading, setIsLoading] = useState(true);
           const [errorMessage, setErrorMessage] = useState("");
+          
           const [refreshTrigger, setRefreshTrigger] = useState(0);
           const [isDarkMode, setIsDarkMode] = useState(false);
           const [isMainMenuOpen, setIsMainMenuOpen] = useState(false);
@@ -227,6 +251,7 @@
                     return "";
                 };
 
+                // Filter Cerdas: Blacklist Nama Pekerjaan Kosong
                 const blacklistedNames = [
                   "asesmen gi level ii", "pemeliharaan mtu", "pemeliharaan konektor",
                   "pemeliharaan insulator dan junction", "pemeliharaan konduktor", "technical",
@@ -260,6 +285,7 @@
                     return { id, item, category, completed, target, details };
                 };
 
+                // Menarik Data Gabungan untuk FTE
                 const getCombinedChartData = (startRow1, endRow1, col1, startRow2, endRow2, col2, labelCol) => {
                     let list = [];
                     const count = endRow1 - startRow1 + 1;
@@ -268,7 +294,6 @@
                         const valJaringan = getVal(col1, startRow1 + i);
                         const valGI = getVal(col2, startRow2 + i);
                         
-                        // Fix YBY & Efektif: Jika label baris ada isinya, push data walau valJaringan/GI = 0
                         if (label && label.trim() !== "") {
                             list.push({ name: label, Jaringan: valJaringan, GarduInduk: valGI });
                         }
@@ -276,22 +301,81 @@
                     return list;
                 };
 
-                // FIX: Menarik Data Sertifikat dengan Format Baru (3 Kolom: Nama, Sertifikat, Link)
-                const getCertificatesData = (nameCol, certCol, linkCol, startRow, endRow) => {
+                // Menarik Data Sertifikat + Tanggal Kadaluarsa (Kolom K, L, M, N)
+                const getCertificatesData = (startRow, endRow) => {
                     let certMap = {};
                     for (let i = startRow; i <= endRow; i++) {
-                        const name = getStr(nameCol, i).trim();
-                        const certName = getStr(certCol, i).trim();
-                        const certLink = getStr(linkCol, i).trim();
+                        const name = getStr('K', i).trim();
+                        const certStr = getStr('L', i).trim();
+                        const linkStr = getStr('M', i).trim();
+                        const expiryStr = getStr('N', i).trim();
                         
-                        if (name !== "" && certName !== "") {
+                        if (name !== "" && certStr !== "") {
+                            // Smart Cleaner v2: Hapus "Sertifikat", "Pelatihan", "Pemeliharaan", dll.
+                            let cleanName = certStr
+                                .replace(/(sertifikasi|sertifikat)(\s+kompetensi)?|pelatihan|diklat|bimtek|pemeliharaan/gi, '')
+                                .replace(/^[-–—\s]+|[-–—\s]+$/g, '')
+                                .trim();
+                            if (!cleanName) cleanName = certStr; // Fallback jika semua kata terhapus
+
+                            // Analisis Tanggal Kadaluarsa (EWS)
+                            let status = 'active';
+                            let daysLeft = 999;
+                            let formattedDate = expiryStr;
+                            
+                            if (expiryStr) {
+                                let dateObj = new Date(expiryStr);
+                                if (isNaN(dateObj.getTime()) && expiryStr.includes('/')) {
+                                    const parts = expiryStr.split('/');
+                                    if (parts.length === 3) dateObj = new Date(`${parts[2]}-${parts[1]}-${parts[0]}`);
+                                }
+                                
+                                if (!isNaN(dateObj.getTime())) {
+                                    const today = new Date();
+                                    today.setHours(0,0,0,0);
+                                    const diffTime = dateObj - today;
+                                    daysLeft = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                                    
+                                    if (daysLeft <= 0) {
+                                        status = 'expired';
+                                    } else if (daysLeft <= 90) {
+                                        status = 'warning';
+                                    }
+                                    
+                                    const options = { day: 'numeric', month: 'short', year: 'numeric' };
+                                    formattedDate = dateObj.toLocaleDateString('id-ID', options);
+                                }
+                            }
+
+                            const certObj = {
+                                rawTitle: certStr,
+                                cleanTitle: cleanName,
+                                url: linkStr,
+                                expiryDate: formattedDate,
+                                status: status,
+                                daysLeft: daysLeft
+                            };
+                            
                             if (!certMap[name]) certMap[name] = [];
-                            certMap[name].push({ name: certName, link: certLink });
+                            certMap[name].push(certObj);
                         }
                     }
+                    
+                    // Auto-Sorting: Kadaluarsa (Merah) -> Warning (Kuning) -> Aktif (Hijau)
+                    Object.keys(certMap).forEach(person => {
+                        certMap[person].sort((a, b) => {
+                            const statusOrder = { 'expired': 1, 'warning': 2, 'active': 3 };
+                            if (statusOrder[a.status] !== statusOrder[b.status]) {
+                                return statusOrder[a.status] - statusOrder[b.status];
+                            }
+                            return a.daysLeft - b.daysLeft;
+                        });
+                    });
+
                     return certMap;
                 };
 
+                // --- MAPPING DATA SEMESTER 1 ---
                 const sem1Data = [
                   makeCategory('g-1', "PREVENTIVE ACTION", 'Gardu Induk', getDetailsList('A', 'C', 'D', 4, 14)),
                   makeCategory('g-2', "CORRECTIVE ACTION", 'Gardu Induk', getDetailsList('A', 'C', 'D', 16, 29)),
@@ -301,6 +385,7 @@
                   makeCategory('j-3', "PROGRAM KEANDALAN", 'Jaringan', getDetailsList('A', 'C', 'D', 73, 88))
                 ];
 
+                // --- MAPPING DATA SEMESTER 2 ---
                 const sem2Data = [
                   makeCategory('g-4', "PREVENTIVE ACTION", 'Gardu Induk', getDetailsList('A', 'F', 'G', 4, 14)),
                   makeCategory('g-5', "CORRECTIVE ACTION", 'Gardu Induk', getDetailsList('A', 'F', 'G', 16, 29)),
@@ -310,10 +395,12 @@
                   makeCategory('j-6', "PROGRAM KEANDALAN", 'Jaringan', getDetailsList('A', 'F', 'G', 73, 88))
                 ];
 
+                // --- MAPPING DATA FTE ---
                 const fteYBYData = getCombinedChartData(107, 115, 'B', 129, 137, 'B', 'A');
                 const waktuEfektifData = getCombinedChartData(97, 105, 'B', 119, 127, 'B', 'A');
-                // Mengambil Sertifikat: Kolom K, L, M di Baris 150-200
-                const certificatesData = getCertificatesData('K', 'L', 'M', 150, 200);
+
+                // --- MAPPING SERTIFIKAT (Kolom K, L, M, N | Baris 150-250) ---
+                const certificatesData = getCertificatesData(150, 250);
 
                 setSheetData({
                   semester1: sem1Data,
@@ -377,59 +464,67 @@
             setExpandedCVs(prev => ({ ...prev, [id]: !prev[id] }));
           };
 
-          // Komponen Daftar Sertifikat Reusable untuk setiap Accordion Personil (Bisa dipakai di Jaringan & GI & Asman)
-          const renderCertificateList = (memberName, memberId, primaryColor) => {
-            const hasCertificates = sheetData.certificates && sheetData.certificates[memberName] && sheetData.certificates[memberName].length > 0;
-            const certColor = primaryColor === 'blue' ? 'text-blue-500 bg-blue-100 hover:bg-blue-200' : 
-                              primaryColor === 'emerald' ? 'text-emerald-500 bg-emerald-100 hover:bg-emerald-200' : 
-                              'text-amber-500 bg-amber-100 hover:bg-amber-200';
-            
-            return (
-              <div className="bg-white dark:bg-slate-800 rounded-lg p-4 border border-slate-200 dark:border-slate-700 shadow-sm mt-3 animate-fade-in-up">
-                <h4 className="text-[11px] font-extrabold text-slate-800 dark:text-slate-200 uppercase tracking-wider mb-3 flex items-center gap-1.5">
-                  <AwardIcon size={14} className={primaryColor === 'blue' ? 'text-blue-500' : primaryColor === 'emerald' ? 'text-emerald-500' : 'text-amber-500'} />
-                  Sertifikat Kompetensi & Dokumen
-                </h4>
-                {isLoading ? (
-                    <p className="text-xs text-slate-400 italic">Memuat data dari sistem...</p>
-                ) : hasCertificates ? (
-                    <ul className="space-y-2">
-                        {sheetData.certificates[memberName].map((cert, idx) => {
-                            // IDE 1: Smart Text Cleaner yang dipercanggih
-                            // Menghapus berbagai awalan seperti "Sertifikat", "Sertifikasi Kompetensi", "Pelatihan", "Diklat", dll
-                            let cleanName = cert.name.replace(/^(Sertifikat Kompetensi|Sertifikat Pelatihan|Sertifikasi Kompetensi|Sertifikat|Sertifikasi|Pelatihan|Diklat|Bimtek)\s*(:|-)?\s*/i, '');
-                            
-                            return (
-                                <li key={idx} className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2.5 sm:gap-4 bg-slate-50 dark:bg-slate-900/50 p-3 rounded-lg border border-slate-100 dark:border-slate-700/50 group hover:border-blue-200 dark:hover:border-blue-800 transition-colors">
-                                    <span className="text-xs font-semibold text-slate-700 dark:text-slate-300 flex items-start gap-2 flex-1 w-full" title={cert.name}>
-                                        <span className={`mt-1 flex-shrink-0 w-1.5 h-1.5 rounded-full ${primaryColor === 'blue' ? 'bg-blue-400' : primaryColor === 'emerald' ? 'bg-emerald-400' : 'bg-amber-400'}`}></span>
-                                        {/* IDE 2: Efek Truncate/Line-Clamp membatasi teks maksimal 2 baris */}
-                                        <span className="leading-relaxed line-clamp-2">{cleanName}</span>
-                                    </span>
-                                    {cert.link ? (
-                                        <button 
-                                          onClick={() => setSelectedCertificate({ name: cert.name, link: cert.link, owner: memberName })}
-                                          className={`w-full sm:w-auto flex-shrink-0 flex items-center justify-center sm:justify-start gap-1.5 px-3 py-2 sm:py-1.5 rounded-md text-[10px] font-bold uppercase tracking-wide transition-all shadow-sm ${certColor} dark:text-white dark:bg-blue-600 dark:hover:bg-blue-500`}
-                                        >
-                                          Lihat Dokumen <ExternalLinkIcon size={12} />
-                                        </button>
-                                    ) : (
-                                        <span className="w-full sm:w-auto flex-shrink-0 flex items-center justify-center text-[10px] uppercase font-bold tracking-wide text-slate-400 dark:text-slate-500 italic bg-slate-100 dark:bg-slate-800 px-3 py-2 sm:py-1.5 rounded-md">Belum Ada File</span>
-                                    )}
-                                </li>
-                            );
-                        })}
-                    </ul>
-                ) : (
-                    <p className="text-xs text-slate-400 italic">Belum ada data sertifikat di Spreadsheet untuk personil ini.</p>
-                )}
-              </div>
-            );
-          };
+          // Render List Sertifikat yang Seragam
+          const renderCertificateList = (personName) => (
+            <ul className="divide-y divide-slate-100 dark:divide-slate-700/50">
+              {sheetData.certificates && sheetData.certificates[personName] && sheetData.certificates[personName].length > 0 ? (
+                sheetData.certificates[personName].map((cert, idx) => (
+                  <li key={idx} className="py-2.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                    <div className="flex items-start gap-2 flex-1 min-w-0 pr-2" title={cert.rawTitle}>
+                      <span className={`mt-1.5 w-2 h-2 rounded-full flex-shrink-0 ${cert.status === 'expired' ? 'bg-red-500 animate-pulse' : cert.status === 'warning' ? 'bg-amber-500' : 'bg-emerald-500'}`}></span>
+                      <div className="min-w-0 flex-1">
+                        <p className="text-xs font-bold text-slate-700 dark:text-slate-200 leading-tight line-clamp-2">{cert.cleanTitle}</p>
+                        <p className="text-[10px] text-slate-400 truncate">{cert.rawTitle}</p>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-center justify-between sm:justify-end gap-2 flex-shrink-0 pl-4 sm:pl-0 border-t sm:border-0 pt-2 sm:pt-0 border-slate-100 dark:border-slate-700">
+                      {/* Badge EWS Kadaluarsa */}
+                      {cert.status === 'expired' ? (
+                        <span className="px-2 py-0.5 text-[10px] font-extrabold bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-300 rounded border border-red-200 dark:border-red-800 flex items-center gap-1 shadow-sm">
+                          🚨 KADALUARSA ({cert.expiryDate})
+                        </span>
+                      ) : cert.status === 'warning' ? (
+                        <span className="px-2 py-0.5 text-[10px] font-extrabold bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 rounded border border-amber-200 dark:border-amber-800 flex items-center gap-1 shadow-sm">
+                          ⚠️ Exp: {cert.expiryDate} ({cert.daysLeft} hr lagi)
+                        </span>
+                      ) : cert.expiryDate ? (
+                        <span className="px-2 py-0.5 text-[10px] font-medium bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded">
+                          Exp: {cert.expiryDate}
+                        </span>
+                      ) : null}
+
+                      {/* Tombol Preview Modal */}
+                      {cert.url ? (
+                        <button 
+                          onClick={() => setSelectedCert(cert)}
+                          className="px-2.5 py-1 text-[11px] font-bold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30 hover:bg-blue-100 dark:hover:bg-blue-900/50 rounded-md transition flex items-center gap-1 whitespace-nowrap cursor-pointer border border-blue-200/50 dark:border-blue-700/50 shadow-sm"
+                        >
+                          📄 Lihat Dokumen
+                        </button>
+                      ) : (
+                        <span className="px-2 py-1 text-[10px] italic text-slate-400 dark:text-slate-500 bg-slate-50 dark:bg-slate-800 rounded">
+                          Belum ada file
+                        </span>
+                      )}
+                    </div>
+                  </li>
+                ))
+              ) : (
+                <li className="text-xs text-slate-400 italic py-3 text-center">
+                  {isLoading ? 'Memuat data dari sistem...' : 'Belum ada data sertifikat di Spreadsheet'}
+                </li>
+              )}
+            </ul>
+          );
 
           return (
             <div className="min-h-screen bg-[#f4f6f9] dark:bg-slate-900 font-sans text-slate-800 dark:text-slate-100 transition-colors duration-300">
               
+              {/* MODAL PREVIEW */}
+              <PreviewModal cert={selectedCert} onClose={() => setSelectedCert(null)} />
+
+              {}
               {/* HEADER / NAVBAR */}
               <div className="sticky top-0 z-30">
                 <nav className="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 px-4 py-3 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 transition-colors duration-300">
@@ -518,6 +613,8 @@
                 </div>
               </div>
 
+              {}
+              {/* MAIN CONTENT ROUTING */}
               {currentPage.startsWith('personil') ? (
                 
                 <main className="max-w-7xl mx-auto p-4 md:p-6 lg:p-8 animate-in fade-in duration-300">
@@ -533,52 +630,57 @@
                     </div>
                   </div>
 
-                  {/* LEADER BANNER: ASMAN PDKB */}
-                  <div className="mb-8">
-                     <div className="bg-gradient-to-r from-[#0e487a] to-blue-900 dark:from-slate-800 dark:to-slate-900 rounded-3xl shadow-lg border border-blue-800/20 overflow-hidden text-white flex flex-col">
-                        <div className="p-6 md:p-8 flex flex-col md:flex-row items-center md:items-start gap-6 relative">
-                            <div className="absolute top-0 right-0 p-8 opacity-10 pointer-events-none">
-                                <AwardIcon size={120} />
-                            </div>
-                            
-                            <div className="h-28 w-28 md:h-32 md:w-32 rounded-full border-4 border-white/20 shadow-xl overflow-hidden bg-white/10 flex-shrink-0 z-10 flex items-center justify-center">
-                                {teamData.assistantManager.photo ? (
-                                    <img src={teamData.assistantManager.photo} alt={teamData.assistantManager.name} className="h-full w-full object-cover" />
-                                ) : (
-                                    <span className="text-3xl font-bold">{getInitials(teamData.assistantManager.name)}</span>
-                                )}
-                            </div>
-                            
-                            <div className="text-center md:text-left z-10 flex-grow mt-2 md:mt-4">
-                                <div className="text-blue-200 text-xs font-bold tracking-widest uppercase mb-1">Manajemen Tim</div>
-                                <h3 className="text-2xl md:text-3xl font-extrabold mb-2">{teamData.assistantManager.name}</h3>
-                                <div className="flex flex-wrap gap-2 justify-center md:justify-start">
-                                    <span className="bg-white/20 backdrop-blur-sm px-3 py-1 rounded-md text-sm font-semibold">{teamData.assistantManager.role}</span>
-                                    <span className="bg-black/20 backdrop-blur-sm px-3 py-1 rounded-md text-sm font-medium border border-white/10">NIP: {teamData.assistantManager.nip}</span>
-                                </div>
-                            </div>
-                            
-                            <div className="z-10 mt-4 md:mt-auto md:self-end">
-                                <button 
-                                    onClick={() => toggleCVAccordion(teamData.assistantManager.id)}
-                                    className="bg-white text-blue-900 hover:bg-blue-50 px-5 py-2.5 rounded-lg text-sm font-bold transition-all shadow-md flex items-center gap-2 w-full justify-center md:w-auto"
-                                >
-                                    {expandedCVs[teamData.assistantManager.id] ? 'Tutup Sertifikat' : 'Lihat Sertifikat & CV'}
-                                    {expandedCVs[teamData.assistantManager.id] ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
-                                </button>
-                            </div>
-                        </div>
-                        
-                        {/* Accordion Konten Sertifikat Asman */}
-                        {expandedCVs[teamData.assistantManager.id] && (
-                            <div className="bg-slate-50 dark:bg-slate-800 p-6 border-t border-blue-900/10 dark:border-slate-700 animate-fade-in-up text-slate-800 dark:text-slate-200">
-                                {renderCertificateList(teamData.assistantManager.name, teamData.assistantManager.id, 'amber')}
-                            </div>
-                        )}
-                     </div>
+                  {}
+                  {/* VIP LEADER BANNER - ASMAN PDKB */}
+                  <div className="bg-gradient-to-r from-[#0e487a] to-[#1a65a4] text-white rounded-3xl p-6 shadow-lg mb-8 flex flex-col md:flex-row items-center gap-6 relative overflow-hidden border border-blue-400/20">
+                    <div className="absolute -right-10 -bottom-10 w-48 h-48 bg-white/5 rounded-full pointer-events-none"></div>
+                    <div className="h-24 w-24 md:h-28 md:w-28 rounded-full border-4 border-white/20 shadow-inner overflow-hidden flex-shrink-0 bg-blue-900 flex items-center justify-center text-3xl font-extrabold">
+                      {teamData.assistantManager.photo ? (
+                        <img src={teamData.assistantManager.photo} alt={teamData.assistantManager.name} className="h-full w-full object-cover" onError={(e) => { e.target.onerror = null; e.target.style.display = 'none'; e.target.nextSibling.style.display = 'flex'; }} />
+                      ) : null}
+                      <span style={{ display: teamData.assistantManager.photo ? 'none' : 'flex' }}>{getInitials(teamData.assistantManager.name)}</span>
+                    </div>
+                    <div className="text-center md:text-left flex-1">
+                      <span className="text-[10px] font-extrabold tracking-widest uppercase bg-blue-500/40 border border-blue-400/40 px-3 py-1 rounded-full text-blue-100 inline-block mb-2 shadow-sm">
+                        ⭐ Pimpinan Tim
+                      </span>
+                      <h3 className="text-2xl font-extrabold tracking-tight">{teamData.assistantManager.name}</h3>
+                      <p className="text-blue-100 text-sm font-medium mt-0.5">{teamData.assistantManager.role} - PT PLN (Persero) UPT Probolinggo</p>
+                    </div>
+                    <div className="w-full md:w-auto">
+                      <button 
+                        onClick={() => toggleCVAccordion('asman')} 
+                        className="w-full md:w-auto px-5 py-3 bg-white/10 hover:bg-white/20 border border-white/30 text-white font-bold text-xs rounded-xl transition flex items-center justify-center gap-2 shadow-sm cursor-pointer backdrop-blur-sm"
+                      >
+                        {expandedCVs['asman'] ? 'Tutup Profil & Sertifikasi' : 'Lihat Profil & Sertifikasi'}
+                        {expandedCVs['asman'] ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+                      </button>
+                    </div>
                   </div>
 
-                  <h3 className="text-lg font-bold text-slate-700 dark:text-slate-300 mb-4 border-b border-slate-200 dark:border-slate-700 pb-2">Anggota Tim {personilType}</h3>
+                  {/* ACCORDION ASMAN */}
+                  {expandedCVs['asman'] && (
+                    <div className="mb-8 p-6 rounded-3xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-md animate-in fade-in slide-in-from-top-2 duration-300">
+                      <div className="space-y-3 mb-4">
+                        <div className="flex items-center text-sm">
+                          <div className="w-7 flex justify-start text-slate-400"><BadgeIcon size={16} /></div>
+                          <div className="flex-1">
+                            <p className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">NIP</p>
+                            <p className="font-bold text-slate-700 dark:text-slate-200 text-sm">{teamData.assistantManager.nip || '-'}</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="bg-slate-50 dark:bg-slate-900/50 rounded-xl p-4 border border-slate-200 dark:border-slate-700">
+                        <h4 className="text-xs font-extrabold text-slate-800 dark:text-slate-200 uppercase tracking-wider mb-3 flex items-center gap-2">
+                          <AwardIcon size={16} className="text-amber-500" /> Sertifikat Kompetensi Pimpinan
+                        </h4>
+                        {renderCertificateList(teamData.assistantManager.name)}
+                      </div>
+                    </div>
+                  )}
+
+                  {}
+                  {/* GRID PERSONIL TIM */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     {(currentPage === 'personil-jaringan' ? teamData.pdkbJaringan : teamData.pdkbGarduInduk).map((member) => (
                       <div key={member.id} className="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden flex flex-col transition-all duration-300 hover:shadow-md">
@@ -602,17 +704,17 @@
                         <div className="bg-slate-50 dark:bg-slate-800/50 px-6 py-3 border-t border-slate-100 dark:border-slate-700/50 flex justify-center">
                           <button 
                             onClick={() => toggleCVAccordion(member.id)}
-                            className={`text-sm font-bold w-full py-2 rounded-lg transition-colors flex items-center justify-center gap-2 ${currentPage === 'personil-jaringan' ? 'text-blue-600 hover:bg-blue-100 dark:text-blue-400 dark:hover:bg-blue-900/30' : 'text-emerald-600 hover:bg-emerald-100 dark:text-emerald-400 dark:hover:bg-emerald-900/30'}`}
+                            className={`text-sm font-bold w-full py-2 rounded-lg transition-colors flex items-center justify-center gap-2 cursor-pointer ${currentPage === 'personil-jaringan' ? 'text-blue-600 hover:bg-blue-100 dark:text-blue-400 dark:hover:bg-blue-900/30' : 'text-emerald-600 hover:bg-emerald-100 dark:text-emerald-400 dark:hover:bg-emerald-900/30'}`}
                           >
                             {expandedCVs[member.id] ? 'Tutup CV Lengkap' : 'Lihat CV Lengkap'}
                             {expandedCVs[member.id] ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
                           </button>
                         </div>
 
-                        {/* ACCORDION CV CONTENT (POP-DOWN) */}
+                        {/* ACCORDION CV CONTENT */}
                         {expandedCVs[member.id] && (
-                          <div className="p-5 border-t border-slate-100 dark:border-slate-700/50 bg-slate-50 dark:bg-slate-800/80 animate-fade-in-up">
-                            <div className="space-y-3 mb-2">
+                          <div className="p-5 border-t border-slate-100 dark:border-slate-700/50 bg-slate-50 dark:bg-slate-800/80 animate-in fade-in slide-in-from-top-2 duration-300">
+                            <div className="space-y-3 mb-4">
                               <div className="flex items-center text-sm">
                                 <div className="w-7 flex justify-start text-slate-400"><BadgeIcon size={14} /></div>
                                 <div className="flex-1">
@@ -621,7 +723,14 @@
                                 </div>
                               </div>
                             </div>
-                            {renderCertificateList(member.name, member.id, currentPage === 'personil-jaringan' ? 'blue' : 'emerald')}
+
+                            <div className="bg-white dark:bg-slate-800 rounded-xl p-3.5 border border-slate-200 dark:border-slate-700 shadow-sm">
+                              <h4 className="text-[11px] font-extrabold text-slate-800 dark:text-slate-200 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                                <AwardIcon size={14} className={currentPage === 'personil-jaringan' ? 'text-blue-500' : 'text-emerald-500'} />
+                                Sertifikat Kompetensi
+                              </h4>
+                              {renderCertificateList(member.name)}
+                            </div>
                           </div>
                         )}
                       </div>
@@ -631,7 +740,7 @@
 
               ) : currentPage === 'fte' ? (
                 
-                <main className="max-w-7xl mx-auto p-4 md:p-6 lg:p-8 animate-fade-in-up">
+                <main className="max-w-7xl mx-auto p-4 md:p-6 lg:p-8 animate-in fade-in duration-300">
                   <button onClick={() => setCurrentPage('dashboard')} className="mb-6 flex items-center gap-2 text-sm font-bold text-blue-600 dark:text-blue-400 hover:text-blue-800 transition-colors bg-white dark:bg-slate-800 px-4 py-2 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 w-fit">
                     <ArrowLeft size={16} /> Kembali ke Dashboard Utama
                   </button>
@@ -717,7 +826,7 @@
 
               ) : (
                 
-                <main className="max-w-7xl mx-auto p-4 md:p-6 lg:p-8 animate-fade-in-up">
+                <main className="max-w-7xl mx-auto p-4 md:p-6 lg:p-8 animate-in fade-in duration-300">
                   {errorMessage && (
                     <div className="mb-6 bg-amber-50 border-l-4 border-amber-500 p-4 rounded-md text-amber-800 text-xs font-medium shadow-sm">💡 {errorMessage}</div>
                   )}
@@ -779,6 +888,7 @@
                     </div>
                   </section>
 
+                  {}
                   <section>
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
                       {/* KOLOM 1: PERSONIL TIM */}
@@ -901,67 +1011,6 @@
                   </section>
                 </main>
               )}
-              
-              {selectedCertificate && (
-                <div className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-900/60 p-4 sm:p-8 backdrop-blur-sm animate-zoom-in">
-                    <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl w-full max-w-5xl h-[85vh] flex flex-col overflow-hidden border border-slate-200 dark:border-slate-700">
-                        {/* Header Modal */}
-                        <div className="flex justify-between items-center px-6 py-4 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800">
-                            <div>
-                                <h3 className="font-extrabold text-slate-800 dark:text-white flex items-center gap-2 text-sm sm:text-base">
-                                    <AwardIcon size={20} className="text-blue-500"/> Preview Dokumen
-                                </h3>
-                                <p className="text-xs text-slate-500 dark:text-slate-400 font-medium mt-1">
-                                    {selectedCertificate.owner} - {selectedCertificate.name}
-                                </p>
-                            </div>
-                            <div className="flex items-center gap-3">
-                                <a 
-                                  href={selectedCertificate.link} 
-                                  target="_blank" 
-                                  rel="noreferrer" 
-                                  className="hidden sm:flex px-4 py-2 bg-blue-600 text-white hover:bg-blue-700 rounded-lg text-xs font-bold transition items-center gap-2"
-                                >
-                                    Buka Penuh <ExternalLinkIcon size={14} />
-                                </a>
-                                <button 
-                                  onClick={() => setSelectedCertificate(null)} 
-                                  className="p-2 bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-lg hover:bg-red-100 hover:text-red-600 dark:hover:bg-red-900/50 dark:hover:text-red-400 transition"
-                                >
-                                    <XIcon size={18} />
-                                </button>
-                            </div>
-                        </div>
-                        {/* Body Modal (Iframe) */}
-                        <div className="flex-1 bg-slate-100 dark:bg-slate-950 relative">
-                            {selectedCertificate.link ? (
-                                <iframe 
-                                    src={getEmbedUrl(selectedCertificate.link)} 
-                                    className="w-full h-full border-none" 
-                                    title={`Preview ${selectedCertificate.name}`}
-                                    allow="autoplay"
-                                ></iframe>
-                            ) : (
-                                <div className="absolute inset-0 flex items-center justify-center text-slate-400 italic">
-                                    Link dokumen tidak valid atau kosong.
-                                </div>
-                            )}
-                        </div>
-                        {/* Mobile Footer Button */}
-                        <div className="sm:hidden p-4 border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
-                            <a 
-                                href={selectedCertificate.link} 
-                                target="_blank" 
-                                rel="noreferrer" 
-                                className="w-full flex justify-center px-4 py-2.5 bg-blue-600 text-white rounded-lg text-sm font-bold transition items-center gap-2"
-                            >
-                                Buka di Tab Baru <ExternalLinkIcon size={16} />
-                            </a>
-                        </div>
-                    </div>
-                </div>
-              )}
-
             </div>
           );
         }
