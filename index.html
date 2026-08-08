@@ -20,9 +20,7 @@
     <script crossorigin src="https://unpkg.com/react-is@18/umd/react-is.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/prop-types/prop-types.min.js"></script>
     
-    <!-- FIX: Mengunci Babel ke versi 7.21.4 -->
     <script src="https://unpkg.com/@babel/standalone@7.21.4/babel.min.js"></script>
-    <!-- FIX: Mengunci Recharts ke versi stabil -->
     <script crossorigin src="https://unpkg.com/recharts@2.12.7/umd/Recharts.js"></script>
 </head>
 <body class="bg-[#f4f6f9] dark:bg-slate-900 transition-colors duration-300">
@@ -210,7 +208,6 @@
                   throw new Error("Link CSV tidak valid atau belum di-Publish sebagai CSV.");
                 }
 
-                // FIX 1: Mesin Pembaca CSV yang lebih tangguh (Mengatasi error jika ada 'Enter' tersembunyi di dalam sel spreadsheet)
                 const rows = [];
                 let tempRow = [];
                 let current = '';
@@ -265,7 +262,6 @@
                     return "";
                 };
 
-                // Filter Cerdas: Blacklist Nama Pekerjaan Kosong
                 const blacklistedNames = [
                   "asesmen gi level ii", "pemeliharaan mtu", "pemeliharaan konektor",
                   "pemeliharaan insulator dan junction", "pemeliharaan konduktor", "technical",
@@ -299,7 +295,6 @@
                     return { id, item, category, completed, target, details };
                 };
 
-                // Menarik Data Gabungan untuk FTE
                 const getCombinedChartData = (startRow1, endRow1, col1, startRow2, endRow2, col2, labelCol) => {
                     let list = [];
                     const count = endRow1 - startRow1 + 1;
@@ -318,6 +313,34 @@
                 // Menarik Data Sertifikat + Tanggal Kadaluarsa (Kolom K, L, M, N)
                 const getCertificatesData = (startRow, endRow) => {
                     let certMap = {};
+
+                    // Helper cerdas penerjemah bulan Indonesia
+                    const parseIndoDate = (str) => {
+                        let d = new Date(str);
+                        if (!isNaN(d.getTime())) return d;
+                        
+                        const bulanIndo = {
+                            'januari': '01', 'jan': '01', 'februari': '02', 'feb': '02',
+                            'maret': '03', 'mar': '03', 'april': '04', 'apr': '04',
+                            'mei': '05', 'juni': '06', 'jun': '06', 'juli': '07', 'jul': '07',
+                            'agustus': '08', 'agu': '08', 'ags': '08', 'september': '09', 'sep': '09',
+                            'oktober': '10', 'okt': '10', 'november': '11', 'nov': '11',
+                            'desember': '12', 'des': '12'
+                        };
+                        
+                        let parts = str.toLowerCase().replace(/,/g, '').split(/[-/\s]+/);
+                        if (parts.length >= 3) {
+                            let year, month, day;
+                            if (parts[2].length === 4) { year = parts[2]; day = parts[0]; month = bulanIndo[parts[1]] || parts[1]; }
+                            else if (parts[0].length === 4) { year = parts[0]; day = parts[2]; month = bulanIndo[parts[1]] || parts[1]; }
+                            
+                            if (year && month && day) {
+                                return new Date(`${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}T00:00:00`);
+                            }
+                        }
+                        return new Date("Invalid");
+                    };
+
                     for (let i = startRow; i <= endRow; i++) {
                         const name = getStr('K', i).trim();
                         const certStr = getStr('L', i).trim();
@@ -325,33 +348,18 @@
                         const expiryStr = getStr('N', i).trim();
                         
                         if (name !== "" && certStr !== "") {
-                            // Smart Cleaner v2: Hapus "Sertifikat", "Pelatihan", "Pemeliharaan", dll.
                             let cleanName = certStr
                                 .replace(/(sertifikasi|sertifikat)(\s+kompetensi)?|pelatihan|diklat|bimtek|pemeliharaan/gi, '')
-                                .replace(/^[-–—\s]+|[-–—\s]+$/g, '')
-                                .trim();
-                            if (!cleanName) cleanName = certStr; // Fallback jika semua kata terhapus
+                                .replace(/^[-–—\s]+|[-–—\s]+$/g, '').trim();
+                            if (!cleanName) cleanName = certStr;
 
-                            // Analisis Tanggal Kadaluarsa (EWS)
-                            let status = 'active';
+                            // Sistem Deteksi Expired (EWS) yang Ditingkatkan
+                            let status = 'active'; 
                             let daysLeft = 999;
                             let formattedDate = expiryStr;
                             
                             if (expiryStr) {
-                                let dateObj = new Date(expiryStr);
-                                
-                                // FIX 2: Coba deteksi berbagai format lokal seperti DD/MM/YYYY atau DD-MM-YYYY jika format standar gagal
-                                if (isNaN(dateObj.getTime())) {
-                                    let parts = expiryStr.split(/[-/]/);
-                                    if (parts.length === 3) {
-                                        let year, month, day;
-                                        if (parts[2].length === 4) { year = parts[2]; month = parts[1]; day = parts[0]; }
-                                        else if (parts[0].length === 4) { year = parts[0]; month = parts[1]; day = parts[2]; }
-                                        if(year && month && day) {
-                                            dateObj = new Date(`${year}-${month}-${day}T00:00:00`);
-                                        }
-                                    }
-                                }
+                                let dateObj = parseIndoDate(expiryStr);
                                 
                                 if (!isNaN(dateObj.getTime())) {
                                     const today = new Date();
@@ -360,27 +368,32 @@
                                     const diffTime = dateObj - today;
                                     daysLeft = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
                                     
-                                    if (daysLeft <= 0) {
+                                    if (daysLeft < 0) {
                                         status = 'expired';
-                                    } else if (daysLeft <= 90) {
+                                    } else if (daysLeft < 100) { // Kurang dari 100 hari = Kuning
                                         status = 'warning';
                                     }
                                     
                                     const options = { day: 'numeric', month: 'short', year: 'numeric' };
                                     formattedDate = dateObj.toLocaleDateString('id-ID', options);
                                 } else {
-                                    // Fallback: Jika tanggal benar-benar tidak bisa dibaca sistem, tampilkan teks aslinya
+                                    // Fallback: Jika tanggal diinput aneh (misal: "Menunggu Jadwal")
+                                    const yearMatch = expiryStr.match(/\b(20\d{2})\b/);
+                                    if (yearMatch) {
+                                        const y = parseInt(yearMatch[1]);
+                                        const cy = new Date().getFullYear();
+                                        if (y < cy) status = 'expired';
+                                        else if (y === cy) status = 'warning';
+                                    } else {
+                                        status = 'unknown'; // Bukan hijau, kuning, atau merah
+                                    }
                                     formattedDate = expiryStr;
                                 }
                             }
 
                             const certObj = {
-                                rawTitle: certStr,
-                                cleanTitle: cleanName,
-                                url: linkStr,
-                                expiryDate: formattedDate,
-                                status: status,
-                                daysLeft: daysLeft
+                                rawTitle: certStr, cleanTitle: cleanName, url: linkStr, 
+                                expiryDate: formattedDate, status: status, daysLeft: daysLeft
                             };
                             
                             if (!certMap[name]) certMap[name] = [];
@@ -388,10 +401,10 @@
                         }
                     }
                     
-                    // Auto-Sorting: Kadaluarsa (Merah) -> Warning (Kuning) -> Aktif (Hijau)
+                    // Auto-Sorting: Kadaluarsa -> Warning -> Aktif -> Unknown
                     Object.keys(certMap).forEach(person => {
                         certMap[person].sort((a, b) => {
-                            const statusOrder = { 'expired': 1, 'warning': 2, 'active': 3 };
+                            const statusOrder = { 'expired': 1, 'warning': 2, 'active': 3, 'unknown': 4 };
                             if (statusOrder[a.status] !== statusOrder[b.status]) {
                                 return statusOrder[a.status] - statusOrder[b.status];
                             }
@@ -491,7 +504,7 @@
             setExpandedCVs(prev => ({ ...prev, [id]: !prev[id] }));
           };
 
-          // Render List Sertifikat yang Seragam - REVISED LAYOUT KARTU VERTIKAL
+          // Render List Sertifikat yang Seragam - REVISED EWS STATUS
           const renderCertificateList = (personName) => (
             <div className="flex flex-col gap-3 mt-2">
               {sheetData.certificates && sheetData.certificates[personName] && sheetData.certificates[personName].length > 0 ? (
@@ -499,7 +512,7 @@
                   <div key={idx} className="bg-white dark:bg-slate-900/40 border border-slate-200 dark:border-slate-700 rounded-xl p-3.5 shadow-sm relative overflow-hidden flex flex-col gap-2.5 transition-all hover:shadow-md">
                     
                     {/* Garis warna di sebelah kiri sbg indikator status */}
-                    <div className={`absolute left-0 top-0 bottom-0 w-1.5 ${cert.status === 'expired' ? 'bg-red-500' : cert.status === 'warning' ? 'bg-amber-500' : 'bg-emerald-500'}`}></div>
+                    <div className={`absolute left-0 top-0 bottom-0 w-1.5 ${cert.status === 'expired' ? 'bg-red-500' : cert.status === 'warning' ? 'bg-amber-500' : cert.status === 'unknown' ? 'bg-slate-400' : 'bg-emerald-500'}`}></div>
 
                     {/* 1. ATAS: Judul Sertifikat */}
                     <div className="pl-2">
@@ -511,15 +524,19 @@
                     <div className="pl-2">
                       {cert.status === 'expired' ? (
                         <span className="inline-flex px-2 py-1 text-[11px] font-extrabold bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300 rounded border border-red-200 dark:border-red-800 shadow-sm items-center gap-1.5">
-                          🚨 KADALUARSA ({cert.expiryDate})
+                          ❌ KADALUARSA ({cert.expiryDate})
                         </span>
                       ) : cert.status === 'warning' ? (
                         <span className="inline-flex px-2 py-1 text-[11px] font-extrabold bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300 rounded border border-amber-200 dark:border-amber-800 shadow-sm items-center gap-1.5">
-                          ⚠️ Exp: {cert.expiryDate} (Sisa {cert.daysLeft} hari)
+                          ⚠️ Hampir Expired: {cert.expiryDate} (Sisa {cert.daysLeft !== 999 ? cert.daysLeft : '?'} hari)
+                        </span>
+                      ) : cert.status === 'unknown' ? (
+                        <span className="inline-flex px-2 py-1 text-[11px] font-bold bg-slate-100 text-slate-500 dark:bg-slate-700 dark:text-slate-400 rounded border border-slate-200 dark:border-slate-600 items-center gap-1.5 shadow-sm">
+                          ❔ Cek Tanggal: {cert.expiryDate}
                         </span>
                       ) : cert.expiryDate ? (
-                        <span className="inline-flex px-2 py-1 text-[11px] font-bold bg-slate-100 text-slate-600 dark:bg-slate-700 dark:text-slate-300 rounded border border-slate-200 dark:border-slate-600 items-center gap-1.5 shadow-sm">
-                          ✅ Exp: {cert.expiryDate} {cert.daysLeft !== 999 && `(Sisa ${cert.daysLeft} hari)`}
+                        <span className="inline-flex px-2 py-1 text-[11px] font-bold bg-emerald-50 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300 rounded border border-emerald-200 dark:border-emerald-800 items-center gap-1.5 shadow-sm">
+                          ✅ Aktif s/d: {cert.expiryDate} {cert.daysLeft !== 999 && `(Sisa ${cert.daysLeft} hari)`}
                         </span>
                       ) : null}
                     </div>
@@ -644,7 +661,6 @@
                 </div>
               </div>
 
-              {}
               {/* MAIN CONTENT ROUTING */}
               {currentPage.startsWith('personil') ? (
                 
