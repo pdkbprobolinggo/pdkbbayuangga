@@ -47,8 +47,7 @@
         const MenuIcon = ({ size = 24, className = "" }) => <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>;
         const Zap = ({ size = 24, className = "", fill="none" }) => <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill={fill} stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>;
         const RefreshCw = ({ size = 24, className = "" }) => <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>;
-        const Moon = ({ size = 24, className = "" }) => <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>;
-        const Sun = ({ size = 24, className = "" }) => <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>;
+        const Moon = ({ size = 24, className = "" }) => <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>;
         const Target = ({ size = 24, className = "" }) => <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>;
         const ChevronDown = ({ size = 12, className = "" }) => <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className={className}><polyline points="6 9 12 15 18 9"></polyline></svg>;
         const ChevronUp = ({ size = 12, className = "" }) => <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className={className}><polyline points="18 15 12 9 6 15"></polyline></svg>;
@@ -103,15 +102,6 @@
         };
 
         const historyYears = [2026, 2025, 2024, 2023, 2022, 2021, 2020];
-
-        // MOCK DATA TATA KELOLA (Nanti akan diisi dari Spreadsheet)
-        const dummyTataKelola = [
-          { id: 'tk1', title: 'Pengorganisasian', progress: 100 },
-          { id: 'tk2', title: 'Alur Proses Pelaksanaan PDKB', progress: 65 },
-          { id: 'tk3', title: 'Penerapan Keselamatan', progress: 85 },
-          { id: 'tk4', title: 'Prosedur Pemeliharaan Peralatan PDKB, Pendukung & K3', progress: 40 },
-          { id: 'tk5', title: 'Transportasi', progress: 100 }
-        ];
 
         // Helper Fungsi Inisial Nama
         const getInitials = (name) => {
@@ -184,7 +174,7 @@
           const [personilType, setPersonilType] = useState('Jaringan'); 
           const [expandedItems, setExpandedItems] = useState({});
           const [expandedCVs, setExpandedCVs] = useState({}); 
-          const [selectedCert, setSelectedCert] = useState(null); // State Modal Preview
+          const [selectedCert, setSelectedCert] = useState(null);
 
           const [isLoading, setIsLoading] = useState(true);
           const [errorMessage, setErrorMessage] = useState("");
@@ -457,7 +447,6 @@
 
           }, [refreshTrigger]); 
 
-          // --- UPDATE MENU BAR: Hapus Realisasi & Target, Tambah Tata Kelola ---
           const topMenuItems = [
             { id: 'Overview', label: 'Overview', icon: LayoutDashboard, hasDropdown: false },
             { id: 'Jaringan', label: 'Jaringan', icon: TowerIcon, hasDropdown: true, dropItems: ['FTE', 'Personil'] },
@@ -603,7 +592,7 @@
                           onClick={() => {
                             setTopMenu(menu.id);
                             if(menu.id === 'Overview') setCurrentPage('dashboard');
-                            else if(menu.id === 'TataKelola') setCurrentPage('tatakelola'); // Routing ke halaman baru
+                            else if(menu.id === 'TataKelola') setCurrentPage('tatakelola'); 
                           }}
                           className={`w-full flex flex-col items-center justify-center min-w-[100px] sm:min-w-[120px] py-2 px-4 border-b-4 transition-all duration-200 ${
                             topMenu === menu.id ? 'border-[#3eb0f7] text-white bg-white/10' : 'border-transparent text-blue-200 dark:text-blue-300 hover:text-white hover:bg-white/5'
@@ -683,7 +672,6 @@
                       { id: 5, title: 'Transportasi', progress: 100 }
                     ].map(item => {
                       
-                      // Logika Penanda Warna EWS (Early Warning System)
                       let color = 'bg-emerald-500';
                       let textColor = 'text-emerald-600 dark:text-emerald-400';
                       
@@ -935,12 +923,187 @@
               ) : (
                 
                 <main className="max-w-7xl mx-auto p-4 md:p-6 lg:p-8 animate-in fade-in duration-300">
-                  {/* Bagian Overview diabaikan dalam instruksi ini, tetap dibiarkan agar tidak merusak kode asli */}
-                  <div className="text-center py-20 text-slate-400">
-                     <LayoutDashboard size={48} className="mx-auto mb-4 opacity-50" />
-                     <h2 className="text-xl font-bold">Halaman Overview</h2>
-                     <p className="text-sm mt-2">Untuk melihat grafik, fitur Overview bisa dikembangkan di sesi berikutnya.</p>
-                  </div>
+                  {errorMessage && (
+                    <div className="mb-6 bg-amber-50 border-l-4 border-amber-500 p-4 rounded-md text-amber-800 text-xs font-medium shadow-sm">💡 {errorMessage}</div>
+                  )}
+
+                  <section className="mb-8">
+                    <div className="bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 shadow-sm p-6 transition-colors duration-300">
+                      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4 border-b border-slate-100 dark:border-slate-700/50 pb-4">
+                        <h2 className="text-sm font-extrabold text-slate-500 dark:text-slate-400 tracking-wider uppercase flex items-center gap-2">
+                          <svg xmlns="http://www.w3.org/2000/svg" width={18} height={18} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-blue-500"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+                          Grafik Performa Target vs Realisasi
+                        </h2>
+                        
+                        <div className="bg-slate-100 dark:bg-slate-900 p-1.5 rounded-lg inline-flex shadow-inner">
+                          <button onClick={() => setActiveSemester('semester1')} className={`px-4 py-1.5 rounded-md text-[11px] font-bold transition-all duration-300 ${activeSemester === 'semester1' ? 'bg-white dark:bg-slate-700 text-blue-600 shadow-sm transform scale-105' : 'text-slate-500 hover:text-slate-800'}`}>SEMESTER 1</button>
+                          <button onClick={() => setActiveSemester('semester2')} className={`px-4 py-1.5 rounded-md text-[11px] font-bold transition-all duration-300 ${activeSemester === 'semester2' ? 'bg-white dark:bg-slate-700 text-blue-600 shadow-sm transform scale-105' : 'text-slate-500 hover:text-slate-800'}`}>SEMESTER 2</button>
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div className="w-full">
+                          <h3 className="text-xs font-bold text-blue-600 dark:text-blue-400 tracking-widest mb-6 text-center">KETERCAPAIAN JARINGAN</h3>
+                          <div className="h-64 w-full">
+                            {isLoading ? ( <div className="h-full flex items-center justify-center text-slate-400 text-sm animate-pulse">Menarik data...</div> ) : (
+                              <ResponsiveContainer width="100%" height="100%">
+                                <BarChart data={chartDataJaringan} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={isDarkMode ? '#334155' : '#e2e8f0'} />
+                                  <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fontSize: 10, fill: isDarkMode ? '#94a3b8' : '#64748b' }} />
+                                  <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 10, fill: isDarkMode ? '#94a3b8' : '#64748b' }} />
+                                  <Tooltip content={<CustomTooltip />} cursor={{ fill: isDarkMode ? '#1e293b' : '#f1f5f9' }} />
+                                  <Legend wrapperStyle={{ fontSize: '11px', paddingTop: '10px' }} />
+                                  <Bar dataKey="Target" fill={isDarkMode ? '#3b82f6' : '#93c5fd'} radius={[4, 4, 0, 0]} barSize={25} />
+                                  <Bar dataKey="Realisasi" fill={isDarkMode ? '#60a5fa' : '#2563eb'} radius={[4, 4, 0, 0]} barSize={25} />
+                                </BarChart>
+                              </ResponsiveContainer>
+                            )}
+                          </div>
+                        </div>
+
+                        <div className="w-full relative">
+                          <div className="hidden md:block absolute -left-4 top-4 bottom-4 w-px bg-slate-200 dark:bg-slate-700/80"></div>
+                          <h3 className="text-xs font-bold text-emerald-600 dark:text-emerald-400 tracking-widest mb-6 text-center">KETERCAPAIAN GARDU INDUK</h3>
+                          <div className="h-64 w-full">
+                            {isLoading ? ( <div className="h-full flex items-center justify-center text-slate-400 text-sm animate-pulse">Menarik data...</div> ) : (
+                              <ResponsiveContainer width="100%" height="100%">
+                                <BarChart data={chartDataGI} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={isDarkMode ? '#334155' : '#e2e8f0'} />
+                                  <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fontSize: 10, fill: isDarkMode ? '#94a3b8' : '#64748b' }} />
+                                  <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 10, fill: isDarkMode ? '#94a3b8' : '#64748b' }} />
+                                  <Tooltip content={<CustomTooltip />} cursor={{ fill: isDarkMode ? '#1e293b' : '#f1f5f9' }} />
+                                  <Legend wrapperStyle={{ fontSize: '11px', paddingTop: '10px' }} />
+                                  <Bar dataKey="Target" fill={isDarkMode ? '#10b981' : '#6ee7b7'} radius={[4, 4, 0, 0]} barSize={25} />
+                                  <Bar dataKey="Realisasi" fill={isDarkMode ? '#34d399' : '#059669'} radius={[4, 4, 0, 0]} barSize={25} />
+                                </BarChart>
+                              </ResponsiveContainer>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+
+                  <section>
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+                      {/* KOLOM 1: PERSONIL TIM */}
+                      <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm p-5 flex flex-col transition-colors duration-300">
+                        <div className="flex justify-between items-center mb-5">
+                          <h2 className="text-xl font-extrabold text-slate-800 dark:text-slate-100 tracking-tight">PERSONIL TIM</h2>
+                        </div>
+                        
+                        <div className="mb-4">
+                          <div className="flex justify-between items-center py-2.5 border-b border-dashed border-slate-200 dark:border-slate-700 text-sm">
+                            <span className="text-slate-500 dark:text-slate-400">Asman PDKB</span>
+                            <span className="font-bold text-slate-800 dark:text-slate-100 text-right">{teamData.assistantManager.name}</span>
+                          </div>
+                        </div>
+
+                        <div className="flex gap-1 mb-3 bg-slate-100 dark:bg-slate-900/50 p-1 rounded-lg">
+                          <button onClick={() => setActiveTab('pdkbJaringan')} className={`flex-1 text-center py-1.5 text-[11px] font-bold rounded-md transition-all ${activeTab === 'pdkbJaringan' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-500'}`}>Jaringan</button>
+                          <button onClick={() => setActiveTab('pdkbGarduInduk')} className={`flex-1 text-center py-1.5 text-[11px] font-bold rounded-md transition-all ${activeTab === 'pdkbGarduInduk' ? 'bg-white text-emerald-600 shadow-sm' : 'text-slate-500'}`}>Gardu Induk</button>
+                        </div>
+
+                        <div className="flex-1 overflow-y-auto pr-1 max-h-80 space-y-1">
+                          {teamData[activeTab].map((member) => (
+                            <div key={member.id} className="flex justify-between items-center py-2.5 border-b border-dashed border-slate-200 dark:border-slate-700 last:border-0">
+                              <span className="text-slate-600 dark:text-slate-300 text-[13px] font-medium truncate pr-2">{member.name}</span>
+                              <span className="font-bold text-slate-800 dark:text-slate-100 text-[12px] whitespace-nowrap text-right">{member.role}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* KOLOM 2: REALISASI JARINGAN (Accordion) */}
+                      <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm p-5 flex flex-col transition-colors duration-300">
+                        <div className="flex justify-between items-center mb-5">
+                          <h2 className="text-xl font-extrabold text-blue-600 dark:text-blue-400 tracking-tight">DETAIL JARINGAN</h2>
+                        </div>
+                        <div className="flex-1 space-y-3">
+                          {isLoading ? (
+                            <div className="text-center py-4 text-sm text-slate-400 animate-pulse">Menarik data...</div>
+                          ) : (
+                            currentDisplayData.filter(d => d.category === 'Jaringan').map((r) => {
+                              const percentage = r.target > 0 ? Math.round((r.completed / r.target) * 100) : 0;
+                              const isExpanded = expandedItems[r.id];
+
+                              return (
+                                <div key={r.id} className="py-2 border-b border-dashed border-slate-200 dark:border-slate-700 last:border-0">
+                                  <div onClick={() => toggleAccordion(r.id)} className="flex justify-between items-center mb-1.5 cursor-pointer group">
+                                    <span className="text-slate-700 dark:text-slate-300 text-[13px] font-bold tracking-wide group-hover:text-blue-600 transition-colors">{r.item}</span>
+                                    <div className="flex items-center gap-2">
+                                      <span className="font-extrabold text-[13px] text-blue-600">{r.completed}/{r.target} <span className="ml-1 text-[10px] bg-blue-50 px-1.5 py-0.5 rounded">{percentage}%</span></span>
+                                      {isExpanded ? <ChevronUp size={16} className="text-slate-400" /> : <ChevronDown size={16} className="text-slate-400" />}
+                                    </div>
+                                  </div>
+                                  <div className="w-full bg-slate-100 dark:bg-slate-700 h-1.5 rounded-full overflow-hidden">
+                                    <div className="bg-blue-500 h-full transition-all duration-500" style={{ width: `${Math.min(percentage, 100)}%` }}></div>
+                                  </div>
+                                  {isExpanded && (
+                                    <div className="mt-3 bg-slate-50 dark:bg-slate-800/80 rounded-xl p-3.5 space-y-2 border border-slate-100 dark:border-slate-700 animate-in fade-in slide-in-from-top-2 duration-300">
+                                      {r.details && r.details.length > 0 ? (
+                                        r.details.map((detail, idx) => (
+                                          <div key={idx} className="flex justify-between items-center text-[12px] border-b border-slate-200 dark:border-slate-700/50 last:border-0 pb-1.5 last:pb-0">
+                                            <span className="text-slate-600 dark:text-slate-400">{detail.name}</span>
+                                            <span className={`font-bold ${detail.real >= detail.target ? 'text-green-600' : 'text-amber-500'}`}>{detail.real} / {detail.target}</span>
+                                          </div>
+                                        ))
+                                      ) : ( <div className="text-xs text-slate-400 text-center italic py-2">Tidak ada rincian.</div> )}
+                                    </div>
+                                  )}
+                                </div>
+                              );
+                            })
+                          )}
+                        </div>
+                      </div>
+
+                      {/* KOLOM 3: REALISASI GARDU INDUK (Accordion) */}
+                      <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm p-5 flex flex-col transition-colors duration-300">
+                        <div className="flex justify-between items-center mb-5">
+                          <h2 className="text-xl font-extrabold text-emerald-600 dark:text-emerald-400 tracking-tight">DETAIL GARDU INDUK</h2>
+                        </div>
+                        <div className="flex-1 space-y-3">
+                          {isLoading ? (
+                            <div className="text-center py-4 text-sm text-slate-400 animate-pulse">Menarik data...</div>
+                          ) : (
+                            currentDisplayData.filter(d => d.category === 'Gardu Induk').map((r) => {
+                              const percentage = r.target > 0 ? Math.round((r.completed / r.target) * 100) : 0;
+                              const isExpanded = expandedItems[r.id];
+
+                              return (
+                                <div key={r.id} className="py-2 border-b border-dashed border-slate-200 dark:border-slate-700 last:border-0">
+                                  <div onClick={() => toggleAccordion(r.id)} className="flex justify-between items-center mb-1.5 cursor-pointer group">
+                                    <span className="text-slate-700 dark:text-slate-300 text-[13px] font-bold tracking-wide group-hover:text-emerald-600 transition-colors">{r.item}</span>
+                                    <div className="flex items-center gap-2">
+                                      <span className="font-extrabold text-[13px] text-emerald-600">{r.completed}/{r.target} <span className="ml-1 text-[10px] bg-emerald-50 px-1.5 py-0.5 rounded">{percentage}%</span></span>
+                                      {isExpanded ? <ChevronUp size={16} className="text-slate-400" /> : <ChevronDown size={16} className="text-slate-400" />}
+                                    </div>
+                                  </div>
+                                  <div className="w-full bg-slate-100 dark:bg-slate-700 h-1.5 rounded-full overflow-hidden">
+                                    <div className="bg-emerald-500 h-full transition-all duration-500" style={{ width: `${Math.min(percentage, 100)}%` }}></div>
+                                  </div>
+                                  {isExpanded && (
+                                    <div className="mt-3 bg-slate-50 dark:bg-slate-800/80 rounded-xl p-3.5 space-y-2 border border-slate-100 dark:border-slate-700 animate-in fade-in slide-in-from-top-2 duration-300">
+                                      {r.details && r.details.length > 0 ? (
+                                        r.details.map((detail, idx) => (
+                                          <div key={idx} className="flex justify-between items-center text-[12px] border-b border-slate-200 dark:border-slate-700/50 last:border-0 pb-1.5 last:pb-0">
+                                            <span className="text-slate-600 dark:text-slate-400">{detail.name}</span>
+                                            <span className={`font-bold ${detail.real >= detail.target ? 'text-green-600' : 'text-amber-500'}`}>{detail.real} / {detail.target}</span>
+                                          </div>
+                                        ))
+                                      ) : ( <div className="text-xs text-slate-400 text-center italic py-2">Tidak ada rincian.</div> )}
+                                    </div>
+                                  )}
+                                </div>
+                              );
+                            })
+                          )}
+                        </div>
+                      </div>
+
+                    </div>
+                  </section>
                 </main>
               )}
             </div>
